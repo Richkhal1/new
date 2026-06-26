@@ -1,0 +1,1505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Services - Legacy National Bank</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --primary: #0d9488;
+      --primary-dark: #0a2e2a;
+      --primary-light: #f0fdfa;
+      --accent-red: #C41E3A;
+      --accent-red-dark: #8B1428;
+      --text-primary: #0A0A0A;
+      --text-secondary: #4A5568;
+      --text-muted: #718096;
+      --border: #E2E8F0;
+      --bg-white: #FFFFFF;
+      --bg-cream: #FDFCFB;
+      --bg-light: #F7F9F9;
+      --shadow-sm: 0 2px 8px rgba(0,0,0,0.04);
+      --shadow: 0 4px 16px rgba(0,0,0,0.08);
+      --shadow-lg: 0 12px 40px rgba(0,0,0,0.15);
+      --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    html { scroll-behavior: smooth; scroll-padding-top: 100px; }
+    
+    body {
+      font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+      color: var(--text-primary);
+      background: var(--bg-cream);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+    
+    a { color: inherit; text-decoration: none; }
+
+    h1, h2, h3 {
+      font-family: "Playfair Display", Georgia, serif;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    /* NAVBAR */
+    .navbar {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+      background: rgba(255,255,255,0.98);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      transition: var(--transition);
+      box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+    }
+    
+    .nav-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 3rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 85px;
+    }
+    
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.875rem;
+      font-family: "Playfair Display", serif;
+      font-weight: 700;
+      font-size: 1.25rem;
+      color: var(--primary);
+      transition: var(--transition);
+    }
+
+    .brand:hover {
+      transform: translateY(-2px);
+    }
+    
+    .brand-logo {
+      height: 44px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      transition: var(--transition);
+    }
+
+    .nav-links a:hover { color: var(--text-primary); background: var(--bg-light); }
+    .nav-links a.active { color: var(--primary); font-weight: 600; }
+    
+    .nav-actions {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+    }
+    
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.875rem 2rem;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 0.9375rem;
+      cursor: pointer;
+      border: none;
+      transition: var(--transition);
+      white-space: nowrap;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.25);
+      transform: translate(-50%, -50%);
+      transition: width 0.6s, height 0.6s;
+    }
+
+    .btn:hover::before {
+      width: 300px;
+      height: 300px;
+    }
+    
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      color: white;
+      box-shadow: 0 4px 12px rgba(13,148,136,0.3);
+    }
+    
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(13,148,136,0.4);
+    }
+    
+    .btn-outline {
+      border: 2px solid var(--primary);
+      color: var(--primary);
+      background: transparent;
+    }
+    
+    .btn-outline:hover {
+      background: var(--primary);
+      color: white;
+    }
+
+    .btn-red {
+      background: linear-gradient(135deg, var(--accent-red) 0%, var(--accent-red-dark) 100%);
+      color: white;
+      box-shadow: 0 4px 12px rgba(196,30,58,0.35);
+    }
+
+    .btn-red:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(196,30,58,0.45);
+    }
+
+    .btn-outline-white {
+      border: 2px solid rgba(255,255,255,0.95);
+      color: white;
+      background: transparent;
+    }
+
+    .btn-outline-white:hover {
+      background: white;
+      color: var(--primary);
+    }
+
+    .btn-white {
+      background: white;
+      color: var(--primary-dark);
+      font-weight: 700;
+    }
+
+    .btn-white:hover {
+      background: var(--bg-cream);
+      transform: translateY(-2px);
+    }
+
+    /* HERO */
+    .hero {
+      margin-top: 85px;
+      color: white;
+      padding: 7rem 3rem;
+      position: relative;
+      overflow: hidden;
+      min-height: 65vh;
+      display: flex;
+      align-items: center;
+      background: linear-gradient(135deg, #001510 0%, var(--primary-dark) 50%, var(--primary) 100%);
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url('images/bank-view-image.jpg');
+      background-size: cover;
+      background-position: center center;
+      background-repeat: no-repeat;
+      opacity: 0.3;
+      z-index: 0;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(0,30,22,0.88), rgba(0,77,67,0.75));
+      z-index: 0;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      50% { transform: translate(30px, -30px) scale(1.05); }
+    }
+
+    .hero-glow {
+      position: absolute;
+      top: -50%;
+      right: -10%;
+      width: 850px;
+      height: 850px;
+      background: radial-gradient(circle, rgba(13,148,136,0.25) 0%, transparent 70%);
+      animation: float 20s ease-in-out infinite;
+      z-index: 0;
+    }
+    
+    .hero-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 1.4fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+    
+    .hero-content {
+      animation: slideInLeft 0.8s ease-out;
+    }
+
+    @keyframes slideInLeft {
+      from { opacity: 0; transform: translateX(-30px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+    
+    .hero h1 {
+      font-size: 4.25rem;
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 1.75rem;
+      color: white;
+      text-shadow: 0 4px 24px rgba(0,0,0,0.4);
+    }
+    
+    .hero-subtitle {
+      font-size: 1.3rem;
+      line-height: 1.75;
+      opacity: 0.96;
+      margin-bottom: 2.75rem;
+      font-weight: 400;
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: 1.25rem;
+      flex-wrap: wrap;
+    }
+
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.75rem;
+      animation: slideInRight 0.8s ease-out;
+    }
+
+    @keyframes slideInRight {
+      from { opacity: 0; transform: translateX(30px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    .stat-card {
+      background: rgba(255,255,255,0.12);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255,255,255,0.25);
+      border-radius: 18px;
+      padding: 2.25rem;
+      transition: var(--transition);
+    }
+
+    .stat-card:hover {
+      background: rgba(255,255,255,0.18);
+      transform: translateY(-8px);
+      border-color: var(--accent-red);
+      box-shadow: 0 12px 35px rgba(0,0,0,0.35);
+    }
+
+    .stat-number {
+      font-size: 2.75rem;
+      font-weight: 800;
+      font-family: "Playfair Display", serif;
+      margin-bottom: 0.5rem;
+      color: white;
+    }
+
+    .stat-label {
+      font-size: 0.9375rem;
+      opacity: 0.92;
+      font-weight: 500;
+    }
+
+    /* SEARCH BAR */
+    .search-section {
+      background: var(--bg-white);
+      border-bottom: 1px solid var(--border);
+      padding: 1.75rem 3rem;
+      position: sticky;
+      top: 85px;
+      z-index: 100;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+    }
+
+    .search-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      gap: 1.25rem;
+      align-items: center;
+    }
+
+    .search-box {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      background: var(--bg-light);
+      border: 2px solid var(--border);
+      border-radius: 12px;
+      padding: 1rem 1.75rem;
+      transition: var(--transition);
+    }
+
+    .search-box:focus-within {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 4px rgba(13,148,136,0.1);
+      background: white;
+    }
+
+    .search-icon {
+      width: 20px;
+      height: 20px;
+      opacity: 0.5;
+    }
+
+    .search-box input {
+      border: none;
+      outline: none;
+      background: transparent;
+      font-size: 1rem;
+      flex: 1;
+      color: var(--text-primary);
+    }
+
+    .search-box input::placeholder {
+      color: var(--text-muted);
+    }
+
+    .filter-tabs {
+      display: flex;
+      gap: 0.75rem;
+    }
+
+    .filter-tab {
+      background: transparent;
+      border: 2px solid var(--border);
+      color: var(--text-secondary);
+      padding: 0.875rem 1.75rem;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: var(--transition);
+      font-weight: 600;
+      font-size: 0.9375rem;
+    }
+
+    .filter-tab:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    .filter-tab.active {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: white;
+    }
+
+    /* MAIN */
+    .main {
+      background: var(--bg-cream);
+    }
+
+    /* SERVICE SECTION */
+    .service-section {
+      padding: 7rem 3rem;
+      position: relative;
+      opacity: 1;
+      transition: opacity 0.3s ease;
+    }
+
+    .service-section.hidden {
+      display: none;
+    }
+
+    .service-section:nth-child(even) {
+      background: var(--bg-white);
+    }
+
+    .service-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 480px 1fr;
+      gap: 5rem;
+      align-items: start;
+    }
+
+    .service-container.reverse {
+      grid-template-columns: 1fr 480px;
+    }
+
+    .service-visual {
+      position: sticky;
+      top: 200px;
+      align-self: start;
+    }
+
+    .visual-card {
+      background: linear-gradient(135deg, rgba(255,255,255,1) 0%, rgba(247,249,249,1) 100%);
+      border-radius: 24px;
+      padding: 0;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+      border: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+      transition: var(--transition);
+    }
+
+    @keyframes rotate {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    .visual-card::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(13,148,136,0.06) 0%, transparent 70%);
+      animation: rotate 30s linear infinite;
+      pointer-events: none;
+    }
+
+    .visual-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.18);
+    }
+
+    .visual-image {
+      width: 100%;
+      height: 340px;
+      border-radius: 24px 24px 0 0;
+      overflow: hidden;
+      background: var(--bg-light);
+      position: relative;
+    }
+
+    .visual-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.6s cubic-bezier(.2,.9,.2,1);
+    }
+
+    .visual-image::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 60%, rgba(0,0,0,0.1) 100%);
+      pointer-events: none;
+    }
+
+    .visual-card:hover .visual-image img {
+      transform: scale(1.08);
+    }
+
+    .visual-text {
+      padding: 2rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .visual-card h3 {
+      font-size: 1.875rem;
+      margin-bottom: 0.875rem;
+      color: var(--primary-dark);
+    }
+
+    .visual-card p {
+      color: var(--text-secondary);
+      font-size: 1.0625rem;
+      line-height: 1.7;
+    }
+
+    .service-content {
+      animation: fadeInUp 0.8s ease-out;
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .service-badge {
+      display: inline-block;
+      font-size: 0.8125rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--accent-red);
+      background: linear-gradient(135deg, rgba(196,30,58,0.12) 0%, rgba(196,30,58,0.06) 100%);
+      padding: 0.75rem 1.75rem;
+      border-radius: 10px;
+      margin-bottom: 1.75rem;
+      border: 1px solid rgba(196,30,58,0.2);
+    }
+
+    .service-title {
+      font-size: 3.25rem;
+      margin-bottom: 1.75rem;
+      color: var(--text-primary);
+      line-height: 1.15;
+    }
+
+    .service-description {
+      font-size: 1.1875rem;
+      color: var(--text-secondary);
+      line-height: 1.85;
+      margin-bottom: 3.5rem;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+      margin-bottom: 3.5rem;
+    }
+
+    .feature-item {
+      display: flex;
+      gap: 1.5rem;
+      padding: 2rem;
+      background: var(--bg-white);
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      transition: var(--transition);
+    }
+
+    .service-section:nth-child(even) .feature-item {
+      background: var(--bg-light);
+    }
+
+    .feature-item:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+      border-color: var(--primary);
+    }
+
+    .feature-icon {
+      width: 56px;
+      height: 56px;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      color: white;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.625rem;
+      flex-shrink: 0;
+      box-shadow: 0 6px 16px rgba(13,148,136,0.3);
+    }
+
+    .feature-content h4 {
+      font-size: 1.125rem;
+      font-weight: 700;
+      margin-bottom: 0.625rem;
+      color: var(--text-primary);
+    }
+
+    .feature-content p {
+      font-size: 0.9375rem;
+      color: var(--text-secondary);
+      line-height: 1.65;
+    }
+
+    .benefits-showcase {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      color: white;
+      border-radius: 18px;
+      padding: 3rem;
+      margin-bottom: 3.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .benefits-showcase::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+      animation: rotate 25s linear infinite;
+    }
+
+    .benefits-showcase h4 {
+      font-size: 1.5rem;
+      margin-bottom: 2rem;
+      font-weight: 700;
+      position: relative;
+      z-index: 1;
+    }
+
+    .benefits-list {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .benefit-item {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+      font-size: 1.0625rem;
+      font-weight: 500;
+    }
+
+    .check-icon {
+      width: 24px;
+      height: 24px;
+      background: var(--accent-red);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 0.75rem;
+      font-weight: bold;
+    }
+
+    .service-actions {
+      display: flex;
+      gap: 1.25rem;
+      flex-wrap: wrap;
+    }
+
+    /* CTA BANNER */
+    .cta-banner {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      color: white;
+      padding: 6rem 3rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-banner::before {
+      content: '';
+      position: absolute;
+      top: -30%;
+      left: -10%;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(196,30,58,0.2) 0%, transparent 70%);
+      animation: float 15s ease-in-out infinite;
+    }
+
+    .cta-banner::after {
+      content: '';
+      position: absolute;
+      bottom: -30%;
+      right: -10%;
+      width: 700px;
+      height: 700px;
+      background: radial-gradient(circle, rgba(255,255,255,0.08) 0%, transparent 70%);
+      animation: float 20s ease-in-out infinite reverse;
+    }
+
+    .cta-container {
+      max-width: 950px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .cta-banner h2 {
+      font-size: 3.25rem;
+      font-weight: 800;
+      margin-bottom: 1.75rem;
+      line-height: 1.2;
+    }
+
+    .cta-banner p {
+      font-size: 1.3rem;
+      opacity: 0.96;
+      margin-bottom: 3rem;
+      line-height: 1.75;
+    }
+
+    .cta-buttons {
+      display: flex;
+      gap: 1.25rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    /* FOOTER */
+    .footer {
+      background: var(--text-primary);
+      color: rgba(255,255,255,0.85);
+      padding: 4.5rem 3rem 2.5rem;
+    }
+
+    .footer-container {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 4.5rem;
+      margin-bottom: 3.5rem;
+    }
+
+    .footer-brand {
+      max-width: 380px;
+    }
+
+    .footer-logo {
+      height: 40px;
+      margin-bottom: 1.5rem;
+    }
+
+    .footer-description {
+      font-size: 0.9375rem;
+      line-height: 1.75;
+      margin-bottom: 1.75rem;
+    }
+
+    .footer-col h4 {
+      font-size: 0.875rem;
+      font-weight: 700;
+      color: white;
+      margin-bottom: 1.5rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .footer-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.875rem;
+    }
+
+    .footer-links a {
+      font-size: 0.9375rem;
+      transition: var(--transition);
+    }
+
+    .footer-links a:hover {
+      color: var(--accent-red);
+      padding-left: 0.5rem;
+    }
+
+    .footer-bottom {
+      padding-top: 2.5rem;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      text-align: center;
+      font-size: 0.875rem;
+      color: rgba(255,255,255,0.65);
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 1100px) {
+      .hero-container,
+      .service-container,
+      .service-container.reverse {
+        grid-template-columns: 1fr;
+        gap: 3.5rem;
+      }
+
+      .service-visual {
+        position: relative;
+        top: 0;
+      }
+
+      .hero h1 {
+        font-size: 3.25rem;
+      }
+
+      .service-title {
+        font-size: 2.75rem;
+      }
+
+      .features-grid,
+      .benefits-list {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .nav-container,
+      .search-container {
+        padding: 0 1.5rem;
+      }
+
+      .nav-links { display: none; }
+
+      .hero {
+        padding: 4.5rem 1.5rem;
+      }
+
+      .hero h1 {
+        font-size: 2.75rem;
+      }
+
+      .hero-subtitle {
+        font-size: 1.125rem;
+      }
+
+      .hero-stats {
+        grid-template-columns: 1fr;
+        gap: 1.25rem;
+      }
+
+      .search-section {
+        padding: 1.25rem 1.5rem;
+      }
+
+      .search-container {
+        flex-direction: column;
+      }
+
+      .filter-tabs {
+        width: 100%;
+        overflow-x: auto;
+        padding-bottom: 0.5rem;
+      }
+
+      .service-section {
+        padding: 4.5rem 1.5rem;
+      }
+
+      .service-title {
+        font-size: 2.25rem;
+      }
+
+      .cta-banner {
+        padding: 4.5rem 1.5rem;
+      }
+
+      .cta-banner h2 {
+        font-size: 2.25rem;
+      }
+
+      .footer {
+        padding: 3.5rem 1.5rem 2rem;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+      }
+
+      .service-actions,
+      .cta-buttons {
+        flex-direction: column;
+      }
+
+      .service-actions .btn,
+      .cta-buttons .btn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="brand">
+        <img src="images/legacy-logo-green.png" alt="Legacy National Bank" class="brand-logo" />
+      </a>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="services.html" class="active">Services</a>
+      </div>
+      <div class="nav-actions">
+        <a href="signup/" class="btn btn-primary">Open Account</a>
+        <a href="login.php" class="btn btn-outline">Log In</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-glow"></div>
+    <div class="hero-container">
+      <div class="hero-content">
+        <h1>Services Built Around Your Legacy</h1>
+        <p class="hero-subtitle">
+          Every service we offer is designed with one purpose: to protect and preserve your family's wealth across generations. From inheritance trusts to family-backed loans, we provide the tools to build a lasting legacy.
+        </p>
+        <div class="hero-cta">
+          <a href="signup/" class="btn btn-red">Get Started</a>
+          <a href="#trust" class="btn btn-outline-white">Explore Services</a>
+        </div>
+      </div>
+
+      <div class="hero-stats">
+        <div class="stat-card">
+          <div class="stat-number">$2.8B+</div>
+          <div class="stat-label">Inheritance Protected</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">15K+</div>
+          <div class="stat-label">Families Served</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">25+</div>
+          <div class="stat-label">Years Preserving Legacies</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">4.9★</div>
+          <div class="stat-label">Trust & Care Rating</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SEARCH BAR -->
+  <section class="search-section">
+    <div class="search-container">
+      <div class="search-box">
+        <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none">
+          <path d="M21 21l-4.35-4.35" stroke="#111" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="11" cy="11" r="6" stroke="#111" stroke-width="2" fill="none"/>
+        </svg>
+        <input id="serviceSearch" type="search" placeholder="Search services (e.g. trust, beneficiaries, savings, loans)" aria-label="Search services" />
+      </div>
+      <div class="filter-tabs">
+        <button class="filter-tab active" data-filter="all">All</button>
+        <button class="filter-tab" data-filter="trust">Trust</button>
+        <button class="filter-tab" data-filter="beneficiaries">Beneficiaries</button>
+        <button class="filter-tab" data-filter="savings">Savings</button>
+        <button class="filter-tab" data-filter="loans">Loans</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- MAIN -->
+  <main class="main">
+
+    <!-- INHERITANCE TRUST SECTION -->
+    <section class="service-section" id="trust" data-category="trust">
+      <div class="service-container">
+        <div class="service-visual">
+          <div class="visual-card">
+            <div class="visual-image">
+              <img src="images/inheritance-family.jpg.jpg" 
+                   alt="Inheritance trust planning" 
+                   loading="lazy" />
+            </div>
+            <div class="visual-text">
+              <h3>Inheritance Trust</h3>
+              <p>Designate beneficiaries, set percentage splits, and ensure your wealth passes exactly as you wish</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="service-content">
+          <span class="service-badge">Legacy Trust Services</span>
+          <h2 class="service-title">Secure Your Family's Inheritance</h2>
+          <p class="service-description">
+            Our inheritance trust accounts let you designate beneficiaries, set percentage splits across multiple accounts, and define exactly how and when your wealth is distributed. Your legacy, your terms — with the security of FDIC-insured trust accounts managed by our experienced team.
+          </p>
+
+          <div class="features-grid">
+            <div class="feature-item">
+              <div class="feature-icon">👥</div>
+              <div class="feature-content">
+                <h4>Beneficiary Designation</h4>
+                <p>Name one or multiple beneficiaries per account with specific percentage allocations</p>
+              </div>
+            </div>
+            <div class="feature-item">
+              <div class="feature-icon">%</div>
+              <div class="feature-content">
+                <h4>Percentage Allocation</h4>
+                <p>Assign exact percentages to each beneficiary with real-time validation to ensure 100% distribution</p>
+              </div>
+            </div>
+            <div class="feature-item">
+              <div class="feature-icon">📅</div>
+              <div class="feature-content">
+                <h4>Release Scheduling</h4>
+                <p>Set age-based or date-based release conditions for when beneficiaries receive their inheritance</p>
+              </div>
+            </div>
+            <div class="feature-item">
+              <div class="feature-icon">🔐</div>
+              <div class="feature-content">
+                <h4>Account Segregation</h4>
+                <p>Maintain separate trust accounts for different beneficiaries or family branches</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="benefits-showcase">
+            <h4>Trust Administration Benefits</h4>
+            <div class="benefits-list">
+              <div class="benefit-item">
+                <div class="check-icon">✓</div>
+                <span>FDIC-insured trust accounts</span>
+              </div>
+              <div class="benefit-item">
+                <div class="check-icon">✓</div>
+                <span>Automatic distribution processing</span>
+              </div>
+              <div class="benefit-item">
+                <div class="check-icon">✓</div>
+                <span>Annual plan reviews & updates</span>
+              </div>
+              <div class="benefit-item">
+                <div class="check-icon">✓</div>
+                <span>Full legal documentation support</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="service-actions">
+            <a href="signup/" class="btn btn-primary">Set Up Your Trust</a>
+            <a href="login.php" class="btn btn-outline">Access Your Account</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BENEFICIARY PLANNING SECTION -->
+    <section class="service-section" id="beneficiaries" data-category="beneficiaries">
+      <div class="service-container reverse">
+        <div class="service-content">
+          <span class="service-badge">Beneficiary Planning</span>
+          <h2 class="service-title">Provide for Those You Love</h2>
+          <p class="service-description">
+            Name your heirs, assign percentage splits per account, and set conditional release schedules. Our beneficiary planning tools give you complete control over how your wealth is distributed, with the flexibility to update plans as your family grows.
+          </p>
+
+          <div class="features-grid">
+            <div class="feature-item">
+              <div class="feature-icon">📋</div>
+              <div class="feature-content">
+                <h4>Multi-Account Allocation</h4>
+                <p>Assign different beneficiaries and percentages across savings, trust, and investment accounts</p>
+              </div>
+            </div>
+            <div class="feature-item">
+              <div class="feature-icon">🔑</div>
+              <div class="feature-content">
+                <h4>Conditional Releases</h4>
+                <p>Set milestones — age 25, college graduation, marriage — before funds are distributed</p>
+              </div>
+            </div>
+            <div class="feature-item">
+              <div class="feature-icon">♾️</div>
+              <div class="feature-content">
+                <h4>Perpetual Beneficiaries</h4>
+                <p>Name contingent beneficiaries to ensure your wealth stays within your family line</p>
+              </div>
+            </div>
+            <div class="feature-item">
+              <div class="feature-icon">✏️</div>
+              <div class="feature-content">
+                <h4>Easy Updates</h4>
+                <p>Modify beneficiaries, percentages, or conditions anytime as your family circumstances change</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="benefits-showcase">
+            <h4>Complete Planning Services</h4>
+            <div class="benefits-list">
+              <div class="benefit-item">
+                <div class="check-icon">✓</div>
+                <span>Real-time plan management dashboard</span>
+              </div>
+              <div class="benefit-item">
+                <div class="check-icon">✓</div>
+                <span>Secure digital documentation vault</span>
+              </div>
+              <div class="benefit-item">
+                <div class="check-icon">✓</div>
+                <span>Estate tax guidance & optimization</span>
+              </div>
+              <div class="benefit-item">
+                <div class="check-icon">✓</div>
+                <span>Family consultation meetings</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="service-actions">
+            <a href="signup/" class="btn btn-primary">Start Planning</a>
+            <a href="login.php" class="btn btn-outline">Review Your Plan</a>
+          </div>
+        </div>
+
+        <div class="service-visual">
+          <div class="visual-card">
+            <div class="visual-image">
+              <img src="images/savings-management.jpg.jpg" 
+                   alt="Family beneficiary planning" 
+                   loading="lazy" />
+            </div>
+            <div class="visual-text">
+              <h3>Beneficiary Planning</h3>
+              <p>Name your heirs, assign percentages, and set release conditions</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- LEGACY SAVINGS SECTION -->
+    <section class="service-section" id="savings" data-category="savings">
+      <div class="service-container">
+        <div class="service-visual">
+          <div class="visual-card">
+            <div class="visual-image">
+              <img src="images/investment-growth.jpg.jpg" 
+                   alt="Legacy savings and wealth growth" 
+                   loading="lazy" />
+            </div>
+            <div class="visual-text">
+              <h3>Legacy Savings</h3>
+              <p>Build a nest egg for future generations with high-yield inheritance accounts</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="service-content">
+          <span class="service-badge">High-Yield Legacy Savings</span>
+          <h2 class="service-title">Build Wealth Across Generations</h2>
+          <p class="service-description">
+            Our legacy savings accounts combine exceptional growth potential with the security of FDIC insurance. Designed for multi-generational wealth building, these accounts offer tax-advantaged growth, automatic contribution options, and seamless transfer to your designated beneficiaries.
+          </p>
+
+          <div class="features-grid">
+            <div class="feature-item">
+              <div class="feature-icon">📈</div>
+              <div class="feature-content">
+                <h4>High-Yield Growth</h4>
+                <p>Competitive interest rates that compound to build substantial wealth over generations</p>
+              </div>
+            </div>
+            <div class="feature-item">
+              <div class="feature-icon">💰</div>
+              <div class="feature-content">
+                <h4>Tax-Advantaged</h4>
+                <p>Structured for efficient generational wealth transfer with minimized tax burden</p>
+              </div>
+            </div>
+            <div class="feature-item">
+              <div class="feature-icon">👨‍👩‍👧‍👦</div>
+              <div class="feature-content">
+                <h4>Multi-Generational</h4>
+                <p>Accounts designed to persist across generations with automatic beneficiary succession</p>
+              </div>
+            </div>
+            <div class="feature-item">
+              <div class="feature-icon">0</div>
+              <div class="feature-content">
+                <h4>Zero Maintenance Fees</h4>
+                <p>No monthly fees, no minimum balance requirements — your savings grow uninterrupted</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="benefits-showcase">
+            <h4>Savings Account Benefits</h4>
+            <div class="benefits-list">
+              <div class="benefit-item">
+                <div class="check-icon">✓</div>
+                <span>Automatic contribution scheduling</span>
+              </div>
+              <div class="benefit-item">
+                <div class="check-icon">✓</div>
+                <span>Goal-based savings tracking tools</span>
+              </div>
+              <div class="benefit-item">
+                <div class="check-icon">✓</div>
+                <span>Seamless generational transfer</span>
+              </div>
+              <div class="benefit-item">
+                <div class="check-icon">✓</div>
+                <span>Dedicated wealth advisory team</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="service-actions">
+            <a href="signup/" class="btn btn-primary">Open a Legacy Account</a>
+            <a href="login.php" class="btn btn-outline">View Your Savings</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAMILY LOANS SECTION -->
+    <section class="service-section" id="loans" data-category="loans">
+      <div class="service-container reverse">
+        <div class="service-content">
+          <span class="service-badge">Family-Backed Loans</span>
+          <h2 class="service-title">Access Funds, Protect Your Legacy</h2>
+          <p class="service-description">
+            New account holders qualify for loans backed by their legacy accounts. Whether you're starting a business, buying a home, or covering unexpected expenses, our family loans offer competitive rates while preserving your inheritance for future generations.
+          </p>
+
+          <div class="features-grid">
+            <div class="feature-item">
+              <div class="feature-icon">🛡️</div>
+              <div class="feature-content">
+                <h4>Legacy-Secured Lending</h4>
+                <p>Loans secured by your legacy account balance — your inheritance stays protected</p>
+              </div>
+            </div>
+            <div class="feature-item">
+              <div class="feature-icon">%</div>
+              <div class="feature-content">
+                <h4>Competitive Rates</h4>
+                <p>Rates starting at 5% APR with fixed terms for predictable monthly payments</p>
+              </div>
+            </div>
+            <div class="feature-item">
+              <div class="feature-icon">📆</div>
+              <div class="feature-content">
+                <h4>Flexible Terms</h4>
+                <p>Choose repayment terms from 6 to 60 months based on your financial situation</p>
+              </div>
+            </div>
+            <div class="feature-item">
+              <div class="feature-icon">⚡</div>
+              <div class="feature-content">
+                <h4>Fast Approval</h4>
+                <p>Streamlined application process with approval decisions in minutes</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="benefits-showcase">
+            <h4>Lending Advantages</h4>
+            <div class="benefits-list">
+              <div class="benefit-item">
+                <div class="check-icon">✓</div>
+                <span>Build credit while protecting inheritance</span>
+              </div>
+              <div class="benefit-item">
+                <div class="check-icon">✓</div>
+                <span>No prepayment penalties</span>
+              </div>
+              <div class="benefit-item">
+                <div class="check-icon">✓</div>
+                <span>Automatic amortization schedule</span>
+              </div>
+              <div class="benefit-item">
+                <div class="check-icon">✓</div>
+                <span>Online payment management portal</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="service-actions">
+            <a href="signup/" class="btn btn-primary">Apply for a Loan</a>
+            <a href="login.php" class="btn btn-outline">Check Your Eligibility</a>
+          </div>
+        </div>
+
+        <div class="service-visual">
+          <div class="visual-card">
+            <div class="visual-image">
+              <img src="images/loans-approval.jpg.jpg" 
+                   alt="Family loan approval" 
+                   loading="lazy" />
+            </div>
+            <div class="visual-text">
+              <h3>Family Loans</h3>
+              <p>Competitive rates backed by your legacy account — build your future today</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- CTA BANNER -->
+  <section class="cta-banner">
+    <div class="cta-container">
+      <h2>Ready to Secure Your Family's Future?</h2>
+      <p>Join over 15,000 families who trust Legacy National Bank to protect and pass down their wealth across generations.</p>
+      <div class="cta-buttons">
+        <a href="signup/" class="btn btn-white">Open Your Legacy Account</a>
+        <a href="login.php" class="btn btn-outline-white">Access Your Account</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <img src="images/legacy-logo-green.png" alt="Legacy National Bank" class="footer-logo">
+          <p class="footer-description">
+            Your trusted partner in preserving and passing down family wealth across generations. For over 25 years, we have helped families protect their inheritance with integrity and care.
+          </p>
+        </div>
+
+        <div class="footer-col">
+          <h4>Services</h4>
+          <ul class="footer-links">
+            <li><a href="#trust">Inheritance Trust</a></li>
+            <li><a href="#beneficiaries">Beneficiary Planning</a></li>
+            <li><a href="#savings">Legacy Savings</a></li>
+            <li><a href="#loans">Family Loans</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Company</h4>
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="services.html">Services</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Resources</h4>
+          <ul class="footer-links">
+            <li><a href="login.php">Client Login</a></li>
+            <li><a href="signup/">Open Account</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2026 Legacy National Bank. All rights reserved. Member FDIC. Equal Housing Lender.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Service search and filter functionality
+    (function() {
+      const searchInput = document.getElementById('serviceSearch');
+      const filterTabs = document.querySelectorAll('.filter-tab');
+      const serviceSections = document.querySelectorAll('.service-section');
+
+      function filterServices() {
+        const searchTerm = searchInput.value.toLowerCase().trim();
+        const activeFilter = document.querySelector('.filter-tab.active').dataset.filter;
+
+        serviceSections.forEach(section => {
+          const category = section.dataset.category || '';
+          const text = section.textContent.toLowerCase();
+          
+          const matchesSearch = !searchTerm || text.includes(searchTerm);
+          const matchesFilter = activeFilter === 'all' || category === activeFilter;
+
+          if (matchesSearch && matchesFilter) {
+            section.style.display = '';
+            section.classList.remove('hidden');
+          } else {
+            section.style.display = 'none';
+            section.classList.add('hidden');
+          }
+        });
+      }
+
+      searchInput.addEventListener('input', filterServices);
+
+      filterTabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          filterTabs.forEach(t => t.classList.remove('active'));
+          tab.classList.add('active');
+          filterServices();
+        });
+      });
+    })();
+
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        const href = this.getAttribute('href');
+        if (href !== '#' && href.length > 1) {
+          const target = document.querySelector(href);
+          if (target) {
+            e.preventDefault();
+            const offsetTop = target.offsetTop - 100;
+            window.scrollTo({
+              top: offsetTop,
+              behavior: 'smooth'
+            });
+          }
+        }
+      });
+    });
+
+    // Enhanced navbar on scroll
+    const navbar = document.querySelector('.navbar');
+    window.addEventListener('scroll', () => {
+      if (window.pageYOffset > 100) {
+        navbar.style.boxShadow = '0 4px 20px rgba(0,0,0,0.12)';
+      } else {
+        navbar.style.boxShadow = '0 2px 12px rgba(0,0,0,0.04)';
+      }
+    });
+
+    // Intersection Observer for animations
+    const observerOptions = {
+      threshold: 0.15,
+      rootMargin: '0px 0px -80px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.service-content, .service-visual').forEach(el => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(30px)';
+      el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+      observer.observe(el);
+    });
+  </script>
+
+</body>
+</html>

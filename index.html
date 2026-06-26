@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Legacy National Bank — Banking Excellence Since 1995</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+
+:root {
+  --teal-900: #0a2e2a; --teal-800: #0d5555; --teal-700: #0f766e; --teal-600: #0d9488;
+  --teal-500: #14b8a6; --teal-400: #2dd4bf; --teal-50: #f0fdfa;
+  --amber-500: #f59e0b; --amber-400: #fbbf24; --amber-50: #fffbeb;
+  --slate-900: #0f172a; --slate-800: #1e293b; --slate-700: #334155; --slate-600: #475569;
+  --slate-500: #64748b; --slate-400: #94a3b8; --slate-300: #cbd5e1; --slate-200: #e2e8f0;
+  --slate-100: #f1f5f9; --slate-50: #f8fafc; --white: #ffffff;
+  --gradient-hero: linear-gradient(135deg, var(--teal-900) 0%, var(--teal-800) 40%, var(--teal-700) 100%);
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.06); --shadow-md: 0 4px 20px rgba(0,0,0,0.08);
+  --shadow-lg: 0 10px 40px rgba(0,0,0,0.12); --shadow-xl: 0 20px 60px rgba(0,0,0,0.15);
+  --radius-sm: 8px; --radius-md: 12px; --radius-lg: 16px; --radius-xl: 20px;
+  --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--white); color: var(--slate-700); -webkit-font-smoothing: antialiased;
+  overflow-x: hidden; line-height: 1.6;
+}
+
+/* Scroll Reveal */
+.reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* Navbar */
+nav.glass {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  background: rgba(255,255,255,0.85); backdrop-filter: blur(16px) saturate(180%);
+  border-bottom: 1px solid var(--slate-200);
+}
+nav.glass .nav-inner {
+  max-width: 1280px; margin: 0 auto; padding: 0 2rem;
+  display: flex; align-items: center; justify-content: space-between; height: 72px;
+}
+.nav-brand { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; }
+.nav-brand img { height: 32px; }
+.nav-links { display: flex; align-items: center; gap: 0.5rem; }
+.nav-links a { text-decoration: none; font-size: 0.9rem; font-weight: 500; color: var(--slate-600); padding: 0.5rem 1rem; border-radius: var(--radius-sm); transition: var(--transition); }
+.nav-links a:hover { color: var(--slate-900); background: var(--slate-50); }
+.nav-btn { padding: 0.55rem 1.25rem; border-radius: var(--radius-sm); font-weight: 600; font-size: 0.9rem; text-decoration: none; transition: var(--transition); }
+.nav-btn-secondary { color: var(--teal-600); border: 1.5px solid var(--teal-200); background: transparent; }
+.nav-btn-secondary:hover { background: var(--teal-50); border-color: var(--teal-400); }
+.nav-btn-primary { background: var(--teal-600); color: var(--white); box-shadow: 0 2px 8px rgba(13,148,136,0.2); }
+.nav-btn-primary:hover { background: var(--teal-700); transform: translateY(-1px); box-shadow: 0 4px 16px rgba(13,148,136,0.3); }
+.mobile-toggle { display: none; background: none; border: none; padding: 0.5rem; cursor: pointer; }
+.mobile-toggle span { display: block; width: 24px; height: 2px; background: var(--slate-700); margin: 5px 0; border-radius: 2px; }
+@media (max-width: 768px) {
+  .nav-links { display: none; position: fixed; top: 72px; left: 0; right: 0; background: var(--white); flex-direction: column; padding: 1rem; border-bottom: 1px solid var(--slate-200); box-shadow: var(--shadow-md); }
+  .nav-links.open { display: flex; }
+  .mobile-toggle { display: block; }
+}
+
+/* Hero */
+.hero {
+  background: var(--gradient-hero); min-height: 100vh; display: flex; align-items: center;
+  padding: 8rem 2rem 6rem; position: relative; overflow: hidden;
+}
+.hero::before {
+  content: ''; position: absolute; inset: 0;
+  background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  opacity: 0.5;
+}
+.hero::after {
+  content: ''; position: absolute; width: 700px; height: 700px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(45,212,191,0.08) 0%, transparent 70%);
+  top: -250px; right: -100px;
+}
+.hero-content { max-width: 1280px; margin: 0 auto; width: 100%; position: relative; z-index: 1; display: grid; grid-template-columns: 1.1fr 1fr; gap: 2rem; align-items: center; }
+.hero-text h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 900; color: var(--white); line-height: 1.1; margin-bottom: 1.5rem; }
+.hero-text h1 span { color: var(--teal-400); }
+.hero-text p { font-size: 1.1rem; color: rgba(255,255,255,0.75); max-width: 540px; margin-bottom: 2rem; line-height: 1.7; }
+.hero-buttons { display: flex; gap: 1rem; flex-wrap: wrap; }
+.btn-hero { padding: 0.85rem 2rem; border-radius: var(--radius-sm); font-weight: 600; font-size: 1rem; text-decoration: none; transition: var(--transition); display: inline-flex; align-items: center; gap: 0.5rem; }
+.btn-hero-primary { background: var(--white); color: var(--teal-900); box-shadow: var(--shadow-md); }
+.btn-hero-primary:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+.btn-hero-secondary { border: 1.5px solid rgba(255,255,255,0.25); color: var(--white); }
+.btn-hero-secondary:hover { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.4); }
+.hero-visual {
+  display: flex; justify-content: center; align-items: stretch;
+  position: relative;
+}
+.hero-visual::before {
+  content: ''; position: absolute; inset: -1rem; 
+  border: 1px solid rgba(255,255,255,0.06); border-radius: var(--radius-xl);
+}
+.hero-bank-image {
+  width: 100%; height: 100%; min-height: 480px;
+  border-radius: var(--radius-lg); object-fit: cover;
+  box-shadow: var(--shadow-xl);
+}
+.hero-badge {
+  position: absolute; bottom: -0.75rem; left: -0.75rem;
+  background: var(--white); color: var(--teal-800);
+  padding: 0.6rem 1.2rem; border-radius: var(--radius-sm);
+  font-size: 0.8rem; font-weight: 700; box-shadow: var(--shadow-lg);
+  display: flex; align-items: center; gap: 0.5rem;
+}
+.hero-badge svg { width: 18px; height: 18px; stroke: var(--teal-600); fill: none; stroke-width: 2; }
+@media (max-width: 768px) {
+  .hero-content { grid-template-columns: 1fr; text-align: center; }
+  .hero-text p { margin-left: auto; margin-right: auto; }
+  .hero-buttons { justify-content: center; }
+  .hero-visual { display: none; }
+}
+
+/* Stats Bar */
+.stats-bar { background: var(--white); padding: 3rem 2rem; border-bottom: 1px solid var(--slate-100); }
+.stats-inner { max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; }
+.stat-item { text-align: center; padding: 1.5rem 1rem; border-radius: var(--radius-md); transition: var(--transition); }
+.stat-item:hover { background: var(--slate-50); }
+.stat-item .stat-icon { width: 40px; height: 40px; margin: 0 auto 0.75rem; border-radius: 50%; background: var(--teal-50); display: flex; align-items: center; justify-content: center; }
+.stat-item .stat-icon svg { width: 18px; height: 18px; stroke: var(--teal-600); fill: none; stroke-width: 2; }
+.stat-item .stat-number { font-family: 'Playfair Display', serif; font-size: 2.5rem; font-weight: 800; color: var(--teal-600); }
+.stat-item .stat-label { font-size: 0.9rem; color: var(--slate-500); margin-top: 0.25rem; }
+@media (max-width: 768px) { .stats-inner { grid-template-columns: repeat(2, 1fr); gap: 1rem; } }
+
+/* Section Shared */
+.section { padding: 6rem 2rem; }
+.section-inner { max-width: 1280px; margin: 0 auto; }
+.section-tag { display: inline-flex; align-items: center; gap: 0.5rem; background: var(--teal-50); color: var(--teal-700); padding: 0.35rem 1rem; border-radius: 100px; font-size: 0.8rem; font-weight: 600; margin-bottom: 1rem; }
+.section-title { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 3.5vw, 2.8rem); font-weight: 800; color: var(--slate-900); margin-bottom: 1rem; }
+.section-subtitle { font-size: 1.05rem; color: var(--slate-500); max-width: 600px; margin-bottom: 3rem; line-height: 1.7; }
+
+/* Services */
+.services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 1.5rem; }
+.service-card {
+  background: var(--white); border: 1px solid var(--slate-100); border-radius: var(--radius-lg);
+  padding: 2rem; transition: var(--transition); position: relative; overflow: hidden;
+}
+.service-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, var(--teal-500), var(--teal-400));
+  transform: scaleX(0); transform-origin: left; transition: transform 0.4s ease;
+}
+.service-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); border-color: var(--teal-100); }
+.service-card:hover::before { transform: scaleX(1); }
+.service-card .service-icon { width: 48px; height: 48px; border-radius: var(--radius-sm); background: linear-gradient(135deg, var(--teal-50), var(--white)); border: 1px solid var(--teal-100); display: flex; align-items: center; justify-content: center; margin-bottom: 1.25rem; }
+.service-card .service-icon svg { width: 24px; height: 24px; stroke: var(--teal-600); fill: none; stroke-width: 2; }
+.service-card h3 { font-size: 1.15rem; font-weight: 700; color: var(--slate-900); margin-bottom: 0.5rem; }
+.service-card p { font-size: 0.9rem; color: var(--slate-500); line-height: 1.6; }
+.service-card .service-link { display: inline-flex; align-items: center; gap: 0.4rem; margin-top: 1rem; font-size: 0.9rem; font-weight: 600; color: var(--teal-600); text-decoration: none; }
+.service-card .service-link svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2; }
+.service-card .service-link:hover { gap: 0.7rem; }
+
+/* Features */
+.features-section { background: linear-gradient(180deg, var(--slate-50) 0%, var(--white) 100%); }
+.features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; }
+.feature-item { display: flex; gap: 1rem; padding: 1.5rem; border-radius: var(--radius-md); transition: var(--transition); }
+.feature-item:hover { background: var(--white); box-shadow: var(--shadow-md); }
+.feature-item .fi-icon { width: 44px; height: 44px; border-radius: 50%; background: linear-gradient(135deg, var(--teal-50), var(--teal-100)); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.feature-item .fi-icon svg { width: 20px; height: 20px; stroke: var(--teal-600); fill: none; stroke-width: 2; }
+.feature-item h4 { font-size: 1rem; font-weight: 700; color: var(--slate-900); margin-bottom: 0.3rem; }
+.feature-item p { font-size: 0.88rem; color: var(--slate-500); line-height: 1.6; }
+
+/* Testimonials */
+.testimonials-section { background: var(--slate-50); position: relative; }
+.testimonials-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+.testimonial-card { background: var(--white); border-radius: var(--radius-md); padding: 2rem; box-shadow: var(--shadow-sm); border: 1px solid var(--slate-100); transition: var(--transition); }
+.testimonial-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+.testimonial-card .stars { color: var(--amber-400); margin-bottom: 0.75rem; font-size: 0.9rem; }
+.testimonial-card blockquote { font-size: 0.95rem; color: var(--slate-600); line-height: 1.7; font-style: italic; margin-bottom: 1rem; }
+.testimonial-card .author { display: flex; align-items: center; gap: 0.75rem; }
+.testimonial-card .author-avatar { width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, var(--teal-500), var(--teal-600)); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.85rem; color: var(--white); }
+.testimonial-card .author-name { font-size: 0.9rem; font-weight: 600; color: var(--slate-900); }
+.testimonial-card .author-title { font-size: 0.8rem; color: var(--slate-400); }
+
+/* CTA */
+.cta-section { background: var(--gradient-hero); text-align: center; padding: 6rem 2rem; position: relative; overflow: hidden; }
+.cta-section::before { content: ''; position: absolute; width: 400px; height: 400px; border-radius: 50%; background: radial-gradient(circle, rgba(45,212,191,0.1) 0%, transparent 70%); bottom: -200px; left: -200px; }
+.cta-section::after { content: ''; position: absolute; width: 300px; height: 300px; border-radius: 50%; background: radial-gradient(circle, rgba(45,212,191,0.06) 0%, transparent 70%); top: -100px; right: -100px; }
+.cta-section h2 { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 3.5vw, 2.8rem); color: var(--white); margin-bottom: 1rem; position: relative; z-index: 1; }
+.cta-section p { color: rgba(255,255,255,0.8); font-size: 1.1rem; margin-bottom: 2rem; position: relative; z-index: 1; }
+.cta-buttons { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; position: relative; z-index: 1; }
+.btn-cta { padding: 0.9rem 2.5rem; border-radius: var(--radius-sm); font-weight: 700; font-size: 1rem; text-decoration: none; transition: var(--transition); display: inline-flex; align-items: center; gap: 0.5rem; }
+.btn-cta-primary { background: var(--white); color: var(--teal-900); box-shadow: var(--shadow-md); }
+.btn-cta-primary:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+.btn-cta-secondary { border: 1.5px solid rgba(255,255,255,0.25); color: var(--white); }
+.btn-cta-secondary:hover { background: rgba(255,255,255,0.08); }
+
+/* Footer */
+footer.footer { background: var(--slate-900); color: var(--slate-400); padding: 4rem 2rem 2rem; }
+.footer-inner { max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem; }
+.footer-brand img { height: 28px; margin-bottom: 1rem; }
+.footer-brand p { font-size: 0.9rem; line-height: 1.7; max-width: 320px; }
+.footer h4 { color: var(--white); font-size: 0.9rem; font-weight: 600; margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 0.03em; }
+.footer a { display: block; color: var(--slate-400); text-decoration: none; font-size: 0.9rem; padding: 0.3rem 0; transition: var(--transition); }
+.footer a:hover { color: var(--teal-400); padding-left: 4px; }
+.footer-bottom { max-width: 1280px; margin: 2rem auto 0; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.06); display: flex; justify-content: space-between; align-items: center; font-size: 0.85rem; }
+@media (max-width: 768px) { .footer-inner { grid-template-columns: 1fr 1fr; gap: 2rem; } .footer-bottom { flex-direction: column; gap: 1rem; text-align: center; } }
+</style>
+</head>
+<body>
+
+<nav class="glass">
+  <div class="nav-inner">
+    <a href="#" class="nav-brand">
+      <img src="images/legacy-logo-green.png" alt="Legacy">
+    </a>
+    <div class="nav-links" id="navLinks">
+      <a href="#">Home</a>
+      <a href="services.html">Services</a>
+      <a href="#features">Features</a>
+      <a href="login.php" class="nav-btn nav-btn-secondary">Sign In</a>
+      <a href="signup/" class="nav-btn nav-btn-primary">Open Account</a>
+    </div>
+    <button class="mobile-toggle" onclick="document.getElementById('navLinks').classList.toggle('open')">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<main>
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-text">
+        <h1>Secure Your Family's <span>Future</span></h1>
+        <p>For over 25 years, Legacy National Bank has helped families preserve and pass down wealth across generations. Protect your inheritance, provide for your children, and build a lasting legacy.</p>
+        <div class="hero-buttons">
+          <a href="signup/" class="btn-hero btn-hero-primary">Open Your Legacy Account</a>
+          <a href="services.html" class="btn-hero btn-hero-secondary">Plan Your Inheritance</a>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <img src="images/bank-view-image.jpg" alt="Legacy National Bank" class="hero-bank-image" loading="lazy">
+        <div class="hero-badge">
+          <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          Since 1995
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="stats-bar">
+    <div class="stats-inner">
+      <div class="stat-item reveal">
+        <div class="stat-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+        <div class="stat-number">$2.8B+</div>
+        <div class="stat-label">Inheritance Protected</div>
+      </div>
+      <div class="stat-item reveal">
+        <div class="stat-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div>
+        <div class="stat-number">15K+</div>
+        <div class="stat-label">Families Served</div>
+      </div>
+      <div class="stat-item reveal">
+        <div class="stat-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
+        <div class="stat-number">25+</div>
+        <div class="stat-label">Years Preserving Legacies</div>
+      </div>
+      <div class="stat-item reveal">
+        <div class="stat-icon"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+        <div class="stat-number">4.9★</div>
+        <div class="stat-label">Trust & Care Rating</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="services">
+    <div class="section-inner">
+      <div class="section-tag reveal">Our Services</div>
+      <h2 class="section-title reveal">Protect what matters most</h2>
+      <p class="section-subtitle reveal">From inheritance planning to family loans, we offer solutions designed to secure your family's financial future across generations.</p>
+      <div class="services-grid">
+        <a href="services.html#trust" class="service-card reveal" style="text-decoration:none;color:inherit;">
+          <div class="service-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+          <h3>Inheritance Trust</h3>
+          <p>Designate beneficiaries, set percentage splits, and ensure your wealth passes exactly as you wish. Your legacy, your terms.</p>
+          <span class="service-link">Learn more <svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></span>
+        </a>
+        <a href="services.html#beneficiaries" class="service-card reveal" style="text-decoration:none;color:inherit;">
+          <div class="service-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+          <h3>Beneficiary Planning</h3>
+          <p>Name your heirs, assign percentages, and set release conditions. We help you provide for children, grandchildren, and loved ones.</p>
+          <span class="service-link">Learn more <svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></span>
+        </a>
+        <a href="services.html#savings" class="service-card reveal" style="text-decoration:none;color:inherit;">
+          <div class="service-icon"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></div>
+          <h3>Legacy Savings</h3>
+          <p>Build a nest egg for future generations with our high-yield inheritance accounts. Tax-advantaged and designed for long-term growth.</p>
+          <span class="service-link">Learn more <svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></span>
+        </a>
+        <a href="services.html#loans" class="service-card reveal" style="text-decoration:none;color:inherit;">
+          <div class="service-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+          <h3>Family Loans</h3>
+          <p>Need funds? New account holders qualify for loans backed by their legacy accounts. Build credit while protecting your inheritance.</p>
+          <span class="service-link">Learn more <svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section features-section" id="features">
+    <div class="section-inner">
+      <div class="section-tag reveal">Why Choose Us</div>
+      <h2 class="section-title reveal">Your family's future is our mission</h2>
+      <p class="section-subtitle reveal">For generations, families have trusted us to safeguard and grow their inheritance. Here's what sets us apart.</p>
+      <div class="features-grid">
+        <div class="feature-item reveal">
+          <div class="fi-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+          <div><h4>Inheritance Protected</h4><p>Your legacy is secured in FDIC-insured trust accounts. Designate beneficiaries and rest easy knowing your family is provided for.</p></div>
+        </div>
+        <div class="feature-item reveal">
+          <div class="fi-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div>
+          <div><h4>Multi-Generational</h4><p>Plan across generations. Set up trusts for grandchildren, create release schedules, and ensure your wealth lasts for decades.</p></div>
+        </div>
+        <div class="feature-item reveal">
+          <div class="fi-icon"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></div>
+          <div><h4>Legacy Lending</h4><p>New account holders can access loans secured by their legacy accounts. Build your future while preserving your inheritance.</p></div>
+        </div>
+        <div class="feature-item reveal">
+          <div class="fi-icon"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+          <div><h4>Estate Guidance</h4><p>Our dedicated estate planners help you navigate wills, trusts, and inheritance law. We're with you every step of the way.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section testimonials-section">
+    <div class="section-inner">
+      <div class="section-tag reveal">Testimonials</div>
+      <h2 class="section-title reveal">Families trust us with their legacy</h2>
+      <p class="section-subtitle reveal">Hear from families who have used Legacy National Bank to protect and pass down their inheritance across generations.</p>
+      <div class="testimonials-grid">
+        <div class="testimonial-card reveal">
+          <div class="stars">★★★★★</div>
+          <blockquote>"I set up inheritance accounts for my three children. Knowing that Legacy will handle the distribution exactly as I've planned gives me such peace of mind."</blockquote>
+          <div class="author">
+            <div class="author-avatar">RW</div>
+            <div><div class="author-name">Robert Whitman</div><div class="author-title">Retired, Father of Three</div></div>
+          </div>
+        </div>
+        <div class="testimonial-card reveal">
+          <div class="stars">★★★★★</div>
+          <blockquote>"My parents left me an inheritance through Legacy 10 years ago. The process was seamless, and the loan I took against my legacy account helped me start my business."</blockquote>
+          <div class="author">
+            <div class="author-avatar">SG</div>
+            <div><div class="author-name">Sarah Gonzalez</div><div class="author-title">Small Business Owner</div></div>
+          </div>
+        </div>
+        <div class="testimonial-card reveal">
+          <div class="stars">★★★★★</div>
+          <blockquote>"We named our grandson as a beneficiary and set up a release schedule for when he turns 25. Legacy's estate planning team made it simple and affordable."</blockquote>
+          <div class="author">
+            <div class="author-avatar">HP</div>
+            <div><div class="author-name">Harold & Patricia</div><div class="author-title">Retired Educators</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-section">
+    <h2>Ready to protect your family's future?</h2>
+    <p>Join over 50,000 families who trust us to preserve and pass down their legacy across generations.</p>
+    <div class="cta-buttons">
+      <a href="signup/" class="btn-cta btn-cta-primary">Start Your Legacy Plan</a>
+      <a href="login.php" class="btn-cta btn-cta-secondary">Access Your Account</a>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <img src="images/legacy-logo-green.png" alt="Legacy">
+      <p>Legacy National Bank has been helping families preserve and pass down their wealth since 1995. We are committed to protecting your inheritance and securing your family's future with integrity and care.</p>
+    </div>
+    <div>
+      <h4>Services</h4>
+      <a href="services.html#trust">Inheritance Trust</a><a href="services.html#beneficiaries">Beneficiary Planning</a><a href="services.html#savings">Legacy Savings</a><a href="services.html#loans">Family Loans</a>
+    </div>
+    <div>
+      <h4>Resources</h4>
+      <a href="#">Estate Planning Guide</a><a href="#">Inheritance FAQ</a><a href="#">Security</a><a href="#">Privacy Policy</a><a href="#">Terms of Service</a>
+    </div>
+    <div>
+      <h4>Contact</h4>
+      <a href="#">1-800-555-0123</a><a href="#">support@legacy.com</a><a href="#">Find a Branch</a><a href="#">Schedule Appointment</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>&copy; 2026 Legacy National Bank. All rights reserved. Member FDIC.</span>
+    <span>Equal Housing Lender</span>
+  </div>
+</footer>
+
+<script>
+function revealOnScroll() {
+  document.querySelectorAll('.reveal').forEach(el => {
+    if (el.getBoundingClientRect().top < window.innerHeight - 80) {
+      el.classList.add('visible');
+    }
+  });
+}
+window.addEventListener('scroll', revealOnScroll);
+window.addEventListener('load', revealOnScroll);
+</script>
+
+</body>
+</html>
