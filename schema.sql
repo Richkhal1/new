@@ -9,12 +9,29 @@ CREATE TABLE IF NOT EXISTS users (
   id INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
   first_name VARCHAR(100) NOT NULL,
   last_name VARCHAR(100) NOT NULL,
+  date_of_birth DATE DEFAULT NULL,
   email VARCHAR(255) NOT NULL UNIQUE,
   password VARCHAR(255) NOT NULL,
   phone VARCHAR(20) DEFAULT NULL,
+  address_street VARCHAR(255) DEFAULT NULL,
+  address_city VARCHAR(100) DEFAULT NULL,
+  address_state VARCHAR(50) DEFAULT NULL,
+  address_zip VARCHAR(20) DEFAULT NULL,
   address TEXT DEFAULT NULL,
+  ssn_last4 VARCHAR(4) DEFAULT NULL,
+  id_type VARCHAR(50) DEFAULT NULL,
+  id_number VARCHAR(100) DEFAULT NULL,
+  employment_status VARCHAR(50) DEFAULT NULL,
+  employer_name VARCHAR(255) DEFAULT NULL,
+  occupation VARCHAR(255) DEFAULT NULL,
+  account_purpose VARCHAR(255) DEFAULT NULL,
+  security_question VARCHAR(255) DEFAULT NULL,
+  security_answer VARCHAR(255) DEFAULT NULL,
+  agreed_tos TINYINT(1) NOT NULL DEFAULT 0,
+  agreed_electronic TINYINT(1) NOT NULL DEFAULT 0,
+  kyc_status ENUM('none','pending','verified','rejected') NOT NULL DEFAULT 'none',
   role ENUM('admin','user') NOT NULL DEFAULT 'user',
-  status ENUM('active','suspended','pending') NOT NULL DEFAULT 'pending',
+  status ENUM('active','suspended','pending','pending_kyc') NOT NULL DEFAULT 'pending',
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB;
@@ -58,6 +75,17 @@ CREATE TABLE IF NOT EXISTS transfers (
   processed_by INT(11) UNSIGNED DEFAULT NULL,
   FOREIGN KEY (from_account_id) REFERENCES accounts(id) ON DELETE CASCADE,
   FOREIGN KEY (processed_by) REFERENCES users(id) ON DELETE SET NULL
+) ENGINE=InnoDB;
+
+CREATE TABLE IF NOT EXISTS kyc_documents (
+  id INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  user_id INT(11) UNSIGNED NOT NULL,
+  document_type ENUM('id_front','id_back','proof_of_address','selfie') NOT NULL,
+  file_path VARCHAR(255) NOT NULL,
+  original_name VARCHAR(255) DEFAULT NULL,
+  file_size INT(11) DEFAULT NULL,
+  uploaded_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 ) ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS settings (

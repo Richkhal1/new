@@ -17,7 +17,7 @@ if (!$user || !password_verify($password, $user['password'])) {
 }
 
 if ($user['status'] === 'suspended') jsonError('Account suspended', 403);
-if ($user['status'] === 'pending') jsonError('Account pending approval', 403);
+if ($user['status'] === 'pending' || $user['status'] === 'pending_kyc') jsonError('Your account is pending identity verification. Please check your email for instructions or contact support.', 403);
 
 $_SESSION['user_id'] = (int)$user['id'];
 $_SESSION['role'] = $user['role'];
