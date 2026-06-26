@@ -19,16 +19,17 @@ $idNumber = trim($_POST['id_number'] ?? '');
 $employmentStatus = $_POST['employment_status'] ?? '';
 $occupation = trim($_POST['occupation'] ?? '');
 $employerName = trim($_POST['employer_name'] ?? '');
+$accountType = trim($_POST['account_type'] ?? 'Legacy Spending Account');
 $accountPurpose = $_POST['account_purpose'] ?? '';
+$fundingMethod = $_POST['funding_method'] ?? '';
 $securityQuestion = $_POST['security_question'] ?? '';
 $securityAnswer = trim($_POST['security_answer'] ?? '');
 $agreedTos = $_POST['agreed_tos'] ?? '0';
 $agreedElectronic = $_POST['agreed_electronic'] ?? '0';
 
-// Required field validation
 $required = ['first_name', 'last_name', 'email', 'password', 'phone', 'date_of_birth',
   'address_street', 'address_city', 'address_state', 'address_zip',
-  'ssn', 'id_type', 'id_number', 'employment_status', 'account_purpose',
+  'ssn', 'id_type', 'id_number', 'employment_status', 'account_purpose', 'funding_method',
   'security_question', 'security_answer'];
 foreach ($required as $f) {
   if (empty($_POST[$f])) jsonError(ucfirst(str_replace('_', ' ', $f)) . ' is required');
@@ -38,7 +39,6 @@ if (strlen($password) < 8) jsonError('Password must be at least 8 characters');
 if (!preg_match('/^\d{9}$/', $ssn)) jsonError('SSN/ITIN must be exactly 9 digits');
 if ($agreedTos !== '1') jsonError('You must agree to the Terms of Service');
 
-// Validate age (at least 18)
 $dob = new DateTime($dateOfBirth);
 $now = new DateTime();
 $age = $now->diff($dob)->y;
@@ -71,30 +71,31 @@ try {
   $userId = $db->lastInsertId();
 
   // Create account
-  $stmt = $db->prepare("INSERT INTO accounts (user_id, account_number, account_type, balance) VALUES (?, ?, 'Legacy Spending Account', 0.00)");
-  $stmt->execute([$userId, generateAccountNumber()]);
+  $stmt = $db->prepare("INSERT INTO accounts (user_id, account_number, account_type, balance) VALUES (?, ?, ?, 0.00)");
+  $stmt->execute([$userId, generateAccountNumber(), $accountType]);
 
-  // Handle file uploads
+  // File uploads
   $uploadDir = __DIR__ . '/../signup/uploads/';
   if (!is_dir($uploadDir)) mkdir($uploadDir, 0755, true);
 
   $docStmt = $db->prepare("INSERT INTO kyc_documents (user_id, document_type, file_path, original_name, file_size) VALUES (?, ?, ?, ?, ?)");
 
-  $idFront = $_FILES['id_front'] ?? null;
-  $idBack = $_FILES['id_back'] ?? null;
+  $uploads = [
+    'id_front'         => 'id_front',
+    'id_back'          => 'id_back',
+    'proof_of_address' => 'proof_of_address',
+    'selfie'           => 'selfie',
+  ];
 
-  if ($idFront && $idFront['error'] === UPLOAD_ERR_OK) {
-    $ext = pathinfo($idFront['name'], PATHINFO_EXTENSION);
-    $filename = 'id_front_' . $userId . '_' . bin2hex(random_bytes(8)) . '.' . $ext;
-    move_uploaded_file($idFront['tmp_name'], $uploadDir . $filename);
-    $docStmt->execute([$userId, 'id_front', 'signup/uploads/' . $filename, $idFront['name'], $idFront['size']]);
-  }
-
-  if ($idBack && $idBack['error'] === UPLOAD_ERR_OK) {
-    $ext = pathinfo($idBack['name'], PATHINFO_EXTENSION);
-    $filename = 'id_back_' . $userId . '_' . bin2hex(random_bytes(8)) . '.' . $ext;
-    move_uploaded_file($idBack['tmp_name'], $uploadDir . $filename);
-    $docStmt->execute([$userId, 'id_back', 'signup/uploads/' . $filename, $idBack['name'], $idBack['size']]);
+  foreach ($uploads as $field => $docType) {
+    $f = $_FILES[$field] ?? null;
+    if ($f && $f['error'] === UPLOAD_ERR_OK) {
+      $ext = strtolower(pathinfo($f['name'], PATHINFO_EXTENSION));
+      if (!in_array($ext, ['jpg','jpeg','png','gif','webp','pdf'])) continue;
+      $filename = $docType . '_' . $userId . '_' . bin2hex(random_bytes(8)) . '.' . $ext;
+      move_uploaded_file($f['tmp_name'], $uploadDir . $filename);
+      $docStmt->execute([$userId, $docType, 'signup/uploads/' . $filename, $f['name'], $f['size']]);
+    }
   }
 
   $db->commit();

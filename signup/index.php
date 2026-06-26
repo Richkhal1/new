@@ -28,7 +28,7 @@
     padding:2rem 1.5rem; -webkit-font-smoothing:antialiased;
   }
   .signup-wrap {
-    width:100%; max-width:680px; background:var(--white);
+    width:100%; max-width:750px; background:var(--white);
     border-radius:var(--radius-md); box-shadow:var(--shadow-lg); overflow:hidden;
   }
   .signup-header {
@@ -39,14 +39,21 @@
   .signup-header h1 { color:var(--white); font-size:1.4rem; }
   .signup-header p { color:rgba(255,255,255,0.75); font-size:0.85rem; margin-top:0.2rem; }
 
+  /* Progress Bar */
+  .progress-wrap { padding:1.5rem 2rem 0; }
+  .progress-bar-track { width:100%; height:4px; background:var(--slate-100); border-radius:4px; overflow:hidden; }
+  .progress-bar-fill { height:100%; background:linear-gradient(90deg, var(--teal-500), var(--teal-400)); border-radius:4px; transition:width 0.5s ease; width:10%; }
+  .progress-labels { display:flex; justify-content:space-between; margin-top:0.5rem; font-size:0.7rem; color:var(--slate-400); font-weight:500; }
+
   /* Steps indicator */
-  .steps-bar { display:flex; align-items:center; justify-content:center; gap:0; padding:1.5rem 2rem 0; }
-  .step-dot { display:flex; align-items:center; gap:0.5rem; font-size:0.78rem; font-weight:600; color:var(--slate-400); }
-  .step-dot .num { width:28px; height:28px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:0.75rem; font-weight:700; background:var(--slate-100); color:var(--slate-500); transition:var(--transition); }
+  .steps-bar { display:flex; align-items:center; justify-content:center; gap:0; padding:0.75rem 2rem 0; }
+  .step-dot { display:flex; align-items:center; gap:0.5rem; font-size:0.75rem; font-weight:600; color:var(--slate-400); }
+  .step-dot .num { width:26px; height:26px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:0.7rem; font-weight:700; background:var(--slate-100); color:var(--slate-500); transition:var(--transition); }
   .step-dot.active .num { background:var(--teal-600); color:var(--white); box-shadow:0 2px 8px rgba(13,148,136,0.3); }
   .step-dot.active { color:var(--teal-700); }
   .step-dot.done .num { background:var(--teal-100); color:var(--teal-700); }
-  .step-line { width:40px; height:1px; background:var(--slate-200); margin:0 0.5rem; }
+  .step-dot.done { color:var(--teal-500); }
+  .step-line { width:36px; height:1px; background:var(--slate-200); margin:0 0.5rem; }
   .step-line.done { background:var(--teal-400); }
 
   .signup-body { padding:2rem; }
@@ -58,35 +65,64 @@
   .error-msg.show { display:block; }
   .step-panel { display:none; }
   .step-panel.active { display:block; }
-  .step-panel h2 { font-size:1.2rem; font-weight:700; color:var(--slate-900); margin-bottom:0.25rem; }
-  .step-panel .step-desc { font-size:0.85rem; color:var(--slate-500); margin-bottom:1.5rem; }
+  .step-panel h2 { font-size:1.15rem; font-weight:700; color:var(--slate-900); margin-bottom:0.2rem; display:flex; align-items:center; gap:0.5rem; }
+  .step-panel .step-desc { font-size:0.82rem; color:var(--slate-500); margin-bottom:1.25rem; }
 
   form { display:flex; flex-direction:column; gap:1rem; }
   .form-row { display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
   .form-row-3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:1rem; }
-  label { display:block; font-size:0.82rem; font-weight:600; color:var(--slate-700); margin-bottom:0.3rem; }
+  label { display:block; font-size:0.8rem; font-weight:600; color:var(--slate-700); margin-bottom:0.25rem; }
   label .req { color:var(--red-500); }
-  input, select {
+  input, select, textarea {
     width:100%; background:var(--white); border:1.5px solid var(--slate-200);
-    border-radius:var(--radius-sm); padding:0.75rem 1rem; font-size:0.92rem;
+    border-radius:var(--radius-sm); padding:0.7rem 0.9rem; font-size:0.9rem;
     color:var(--slate-800); transition:var(--transition); font-family:inherit;
   }
-  input::placeholder { color:var(--slate-400); }
-  input:focus, select:focus { outline:none; border-color:var(--teal-500); box-shadow:0 0 0 3px rgba(20,184,166,0.1); }
-  select { appearance:none; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 1rem center; cursor:pointer; }
+  input::placeholder, textarea::placeholder { color:var(--slate-400); }
+  input:focus, select:focus, textarea:focus { outline:none; border-color:var(--teal-500); box-shadow:0 0 0 3px rgba(20,184,166,0.1); }
+  textarea { resize:vertical; min-height:60px; }
+  select { appearance:none; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 0.9rem center; cursor:pointer; }
+
+  /* Account type cards */
+  .acct-types { display:grid; grid-template-columns:1fr 1fr 1fr; gap:0.75rem; margin-bottom:0.5rem; }
+  .acct-type { border:1.5px solid var(--slate-200); border-radius:var(--radius-sm); padding:1rem; cursor:pointer; transition:var(--transition); text-align:center; }
+  .acct-type:hover { border-color:var(--teal-300); background:var(--teal-50); }
+  .acct-type.selected { border-color:var(--teal-600); background:var(--teal-50); box-shadow:0 0 0 3px rgba(13,148,136,0.1); }
+  .acct-type .acct-icon { width:32px; height:32px; margin:0 auto 0.5rem; border-radius:8px; background:var(--teal-50); display:flex; align-items:center; justify-content:center; }
+  .acct-type .acct-icon svg { width:16px; height:16px; stroke:var(--teal-600); fill:none; stroke-width:2; }
+  .acct-type h4 { font-size:0.82rem; font-weight:700; color:var(--slate-900); }
+  .acct-type p { font-size:0.68rem; color:var(--slate-500); margin-top:0.2rem; line-height:1.4; }
+
+  /* File upload with preview */
   .file-upload { position:relative; }
   .file-upload input[type=file] { position:absolute; inset:0; opacity:0; cursor:pointer; z-index:2; }
-  .file-upload .file-label { display:flex; align-items:center; gap:0.75rem; padding:0.75rem 1rem; border:1.5px dashed var(--slate-300); border-radius:var(--radius-sm); color:var(--slate-500); font-size:0.85rem; transition:var(--transition); }
+  .file-upload .file-label { display:flex; align-items:center; gap:0.75rem; padding:0.7rem 0.9rem; border:1.5px dashed var(--slate-300); border-radius:var(--radius-sm); color:var(--slate-500); font-size:0.82rem; transition:var(--transition); }
   .file-upload .file-label svg { width:18px; height:18px; stroke:var(--slate-400); fill:none; stroke-width:2; flex-shrink:0; }
   .file-upload.has-file .file-label { border-color:var(--teal-400); background:var(--teal-50); color:var(--teal-700); }
   .file-upload.has-file .file-label svg { stroke:var(--teal-600); }
+  .file-preview { display:none; margin-top:0.5rem; border-radius:var(--radius-sm); overflow:hidden; max-height:120px; position:relative; }
+  .file-preview.show { display:block; }
+  .file-preview img { width:100%; height:120px; object-fit:cover; display:block; border:1px solid var(--slate-200); border-radius:var(--radius-sm); }
+
+  /* Password Strength */
+  .pw-meter { margin-top:0.4rem; }
+  .pw-bar { height:4px; background:var(--slate-100); border-radius:4px; overflow:hidden; }
+  .pw-bar-fill { height:100%; border-radius:4px; transition:all 0.3s ease; width:0%; }
+  .pw-label { font-size:0.7rem; margin-top:0.25rem; font-weight:600; }
+  .pw-label.weak { color:var(--red-500); } .pw-label.fair { color:#f59e0b; }
+  .pw-label.good { color:#22c55e; } .pw-label.strong { color:#059669; }
+
+  /* Checkbox */
   .checkbox-row { display:flex; align-items:flex-start; gap:0.75rem; }
   .checkbox-row input[type=checkbox] { width:18px; height:18px; margin-top:0.15rem; flex-shrink:0; accent-color:var(--teal-600); border-radius:3px; cursor:pointer; }
-  .checkbox-row label { font-size:0.82rem; color:var(--slate-600); font-weight:400; cursor:pointer; }
+  .checkbox-row label { font-size:0.8rem; color:var(--slate-600); font-weight:400; cursor:pointer; }
   .checkbox-row label a { color:var(--teal-600); text-decoration:none; font-weight:500; }
-  .btn-row { display:flex; gap:1rem; margin-top:1rem; }
+  .disclosure-box { display:none; background:var(--slate-50); border:1px solid var(--slate-200); border-radius:var(--radius-sm); padding:1rem; font-size:0.78rem; color:var(--slate-500); line-height:1.7; max-height:150px; overflow-y:auto; }
+  .disclosure-box.show { display:block; }
+
+  .btn-row { display:flex; gap:0.75rem; margin-top:0.75rem; }
   .btn {
-    padding:0.85rem 1.5rem; border-radius:var(--radius-sm); font-weight:600; font-size:0.95rem;
+    padding:0.8rem 1.5rem; border-radius:var(--radius-sm); font-weight:600; font-size:0.9rem;
     border:none; cursor:pointer; transition:var(--transition); font-family:inherit; display:inline-flex;
     align-items:center; justify-content:center; gap:0.5rem; flex:1;
   }
@@ -94,26 +130,35 @@
   .btn-primary:hover { background:var(--teal-700); transform:translateY(-1px); box-shadow:0 6px 20px rgba(13,148,136,0.35); }
   .btn-primary:disabled { opacity:0.6; cursor:not-allowed; transform:none; }
   .btn-outline { background:transparent; color:var(--slate-600); border:1.5px solid var(--slate-200); }
-  .btn-outline:hover { border-color:var(--slate-400); }
-  .btn-back { flex:0.5; }
-  .terms-note { font-size:0.75rem; color:var(--slate-400); text-align:center; margin-top:1.5rem; }
-  .login-link { text-align:center; margin-top:1.25rem; font-size:0.9rem; color:var(--slate-500); }
+  .btn-outline:hover { border-color:var(--slate-400); background:var(--slate-50); }
+  .btn-back { flex:0.4; }
+
+  .terms-note { font-size:0.72rem; color:var(--slate-400); text-align:center; margin-top:1.25rem; }
+  .login-link { text-align:center; margin-top:1rem; font-size:0.88rem; color:var(--slate-500); }
   .login-link a { color:var(--teal-600); font-weight:600; text-decoration:none; }
   .login-link a:hover { text-decoration:underline; }
-  .success-screen { text-align:center; padding:3rem 1rem; display:none; }
+
+  .success-screen { text-align:center; padding:2.5rem 1.5rem; display:none; }
   .success-screen.show { display:block; }
-  .success-screen .check { width:64px; height:64px; border-radius:50%; background:var(--green-50); display:flex; align-items:center; justify-content:center; margin:0 auto 1.5rem; }
+  .success-screen .check { width:64px; height:64px; border-radius:50%; background:var(--green-50); display:flex; align-items:center; justify-content:center; margin:0 auto 1.25rem; }
   .success-screen .check svg { width:32px; height:32px; stroke:var(--green-500); fill:none; stroke-width:2; }
-  .success-screen h2 { font-size:1.5rem; font-weight:700; color:var(--slate-900); margin-bottom:0.5rem; }
-  .success-screen p { color:var(--slate-500); font-size:0.9rem; margin-bottom:2rem; line-height:1.6; }
+  .success-screen h2 { font-size:1.4rem; font-weight:700; color:var(--slate-900); margin-bottom:0.35rem; }
+  .success-screen .app-num { font-size:0.82rem; color:var(--slate-400); margin-bottom:1.5rem; }
+  .success-screen .acct-details { display:grid; grid-template-columns:1fr 1fr; gap:0.75rem; margin-bottom:1.5rem; text-align:left; }
+  .success-screen .acct-details .det { background:var(--slate-50); border-radius:var(--radius-sm); padding:0.75rem 1rem; }
+  .success-screen .acct-details .det-label { font-size:0.7rem; color:var(--slate-400); text-transform:uppercase; letter-spacing:0.04em; font-weight:600; }
+  .success-screen .acct-details .det-value { font-size:0.9rem; font-weight:700; color:var(--slate-900); margin-top:0.1rem; }
+  .success-screen p { color:var(--slate-500); font-size:0.85rem; margin-bottom:1.5rem; line-height:1.6; }
   .success-screen .btn { display:inline-flex; width:auto; }
 
-  @media(max-width:600px){
+  @media(max-width:640px){
     .form-row, .form-row-3 { grid-template-columns:1fr; }
+    .acct-types { grid-template-columns:1fr; }
     .signup-body { padding:1.5rem; }
-    .step-line { width:24px; }
+    .step-line { width:18px; }
     .btn-row { flex-direction:column; }
     .btn-back { flex:1; }
+    .success-screen .acct-details { grid-template-columns:1fr; }
   }
 </style>
 </head>
@@ -128,13 +173,23 @@
     <p>Complete all steps to activate your banking relationship</p>
   </div>
 
+  <!-- Progress Bar -->
+  <div class="progress-wrap">
+    <div class="progress-bar-track"><div class="progress-bar-fill" id="progressFill"></div></div>
+    <div class="progress-labels">
+      <span>Personal Info</span>
+      <span>Identity & Documents</span>
+      <span>Security & Review</span>
+    </div>
+  </div>
+
   <!-- Steps -->
   <div class="steps-bar">
-    <div class="step-dot active" data-step="1"><span class="num">1</span> Personal</div>
+    <div class="step-dot active" data-step="1"><span class="num">1</span></div>
     <div class="step-line" data-step="1"></div>
-    <div class="step-dot" data-step="2"><span class="num">2</span> Identity</div>
+    <div class="step-dot" data-step="2"><span class="num">2</span></div>
     <div class="step-line" data-step="2"></div>
-    <div class="step-dot" data-step="3"><span class="num">3</span> Security</div>
+    <div class="step-dot" data-step="3"><span class="num">3</span></div>
   </div>
 
   <div class="signup-body">
@@ -143,15 +198,22 @@
     <!-- SUCCESS SCREEN -->
     <div class="success-screen" id="successScreen">
       <div class="check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
-      <h2>Application Submitted</h2>
-      <p>Your account has been created. Please check your email for verification instructions. You'll receive your account and routing numbers once your identity is verified.</p>
-      <a href="../login.php" class="btn btn-primary" style="width:auto;padding:0.85rem 2.5rem;">Sign In to Your Account</a>
+      <h2>Application Received</h2>
+      <p class="app-num">Reference #: <strong id="appRef">LNB-2026-XXXXX</strong></p>
+      <div class="acct-details">
+        <div class="det"><div class="det-label">Account Type</div><div class="det-value" id="suAcctType">—</div></div>
+        <div class="det"><div class="det-label">Routing Number</div><div class="det-value">031101279</div></div>
+        <div class="det"><div class="det-label">Status</div><div class="det-value" style="color:#f59e0b">Pending Verification</div></div>
+        <div class="det"><div class="det-label">Est. Activation</div><div class="det-value">1-2 Business Days</div></div>
+      </div>
+      <p>Your documents are being reviewed. You'll receive an email with your account number once verification is complete.</p>
+      <a href="../login.php" class="btn btn-primary" style="width:auto;padding:0.85rem 2.5rem;">Track Application Status</a>
     </div>
 
     <!-- STEP 1: Personal Information -->
     <div class="step-panel active" id="step1">
       <h2>Personal Information</h2>
-      <p class="step-desc">Please provide your legal name and contact details as they appear on your government-issued ID.</p>
+      <p class="step-desc">Legal name and contact details as they appear on your government-issued ID.</p>
       <form id="step1Form">
         <div class="form-row">
           <div>
@@ -215,16 +277,16 @@
           </div>
         </div>
         <div class="btn-row">
-          <button type="button" class="btn btn-outline btn-back" onclick="history.back()" style="flex:0.5">Back</button>
+          <button type="button" class="btn btn-outline btn-back" onclick="history.back()">Back</button>
           <button type="submit" class="btn btn-primary">Continue →</button>
         </div>
       </form>
     </div>
 
-    <!-- STEP 2: Identity & Employment -->
+    <!-- STEP 2: Identity & Documents -->
     <div class="step-panel" id="step2">
       <h2>Identity Verification</h2>
-      <p class="step-desc">We are required by federal regulation to verify your identity. Your information is encrypted and securely stored.</p>
+      <p class="step-desc">Federal regulations require us to verify your identity. All documents are encrypted and securely stored.</p>
       <form id="step2Form">
         <div class="form-row">
           <div>
@@ -246,22 +308,42 @@
         <div>
           <label>Social Security Number / ITIN <span class="req">*</span></label>
           <input type="text" id="ssn" placeholder="XXX-XX-XXXX" required pattern="^\d{3}-?\d{2}-?\d{4}$|^\d{2}-?\d{7}$" inputmode="numeric" oninput="autoFormatSSN(this)">
-          <div style="font-size:0.72rem;color:var(--slate-400);margin-top:0.25rem;">Enter your 9-digit SSN or ITIN. Hyphens optional — we'll format it.</div>
+          <div style="font-size:0.7rem;color:var(--slate-400);margin-top:0.2rem;">Enter your 9-digit SSN or ITIN. Hyphens added automatically.</div>
         </div>
         <div class="form-row">
           <div class="file-upload" id="idFrontUpload">
-            <input type="file" id="id_front" accept="image/*,.pdf" required>
+            <input type="file" id="id_front" accept="image/*,.pdf" required onchange="previewFile(this, 'idFrontPreview')">
             <div class="file-label">
               <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
               <span>Upload front of ID</span>
             </div>
+            <div class="file-preview" id="idFrontPreview"><img src="" alt="ID front preview"></div>
           </div>
           <div class="file-upload" id="idBackUpload">
-            <input type="file" id="id_back" accept="image/*,.pdf">
+            <input type="file" id="id_back" accept="image/*,.pdf" onchange="previewFile(this, 'idBackPreview')">
             <div class="file-label">
               <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
               <span>Upload back of ID (optional)</span>
             </div>
+            <div class="file-preview" id="idBackPreview"><img src="" alt="ID back preview"></div>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="file-upload" id="poaUpload">
+            <input type="file" id="proof_of_address" accept="image/*,.pdf" onchange="previewFile(this, 'poaPreview')">
+            <div class="file-label">
+              <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+              <span>Proof of address (utility bill, lease)</span>
+            </div>
+            <div class="file-preview" id="poaPreview"><img src="" alt="Proof of address preview"></div>
+          </div>
+          <div class="file-upload" id="selfieUpload">
+            <input type="file" id="selfie" accept="image/*" capture="user" onchange="previewFile(this, 'selfiePreview')">
+            <div class="file-label">
+              <svg viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+              <span>Take a selfie (biometric check)</span>
+            </div>
+            <div class="file-preview" id="selfiePreview"><img src="" alt="Selfie preview"></div>
           </div>
         </div>
         <div>
@@ -276,7 +358,7 @@
             <option value="unemployed">Unemployed</option>
           </select>
         </div>
-        <div class="form-row" id="employmentFields">
+        <div class="form-row">
           <div>
             <label>Occupation / Job Title</label>
             <input type="text" id="occupation" placeholder="e.g. Software Engineer">
@@ -286,6 +368,38 @@
             <input type="text" id="employer_name" placeholder="Company name">
           </div>
         </div>
+        <div class="btn-row">
+          <button type="button" class="btn btn-outline btn-back" onclick="goToStep(1)">← Back</button>
+          <button type="submit" class="btn btn-primary">Continue →</button>
+        </div>
+      </form>
+    </div>
+
+    <!-- STEP 3: Account, Security & Review -->
+    <div class="step-panel" id="step3">
+      <h2>Account Setup &amp; Security</h2>
+      <p class="step-desc">Choose your account type and create your login credentials.</p>
+      <form id="step3Form">
+        <label>Account Type <span class="req">*</span></label>
+        <div class="acct-types" id="accountTypeSelector">
+          <div class="acct-type" data-value="Legacy Spending Account" onclick="selectAcctType(this)">
+            <div class="acct-icon"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></div>
+            <h4>Legacy Spending</h4>
+            <p>Everyday checking with no fees and unlimited transactions</p>
+          </div>
+          <div class="acct-type" data-value="Legacy Savings Account" onclick="selectAcctType(this)">
+            <div class="acct-icon"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></div>
+            <h4>Legacy Savings</h4>
+            <p>High-yield savings at 4.85% APY, built for long-term growth</p>
+          </div>
+          <div class="acct-type" data-value="Inheritance Trust Account" onclick="selectAcctType(this)">
+            <div class="acct-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+            <h4>Inheritance Trust</h4>
+            <p>Designate beneficiaries and protect generational wealth</p>
+          </div>
+        </div>
+        <input type="hidden" id="account_type" value="Legacy Spending Account">
+
         <div>
           <label>Purpose of Account <span class="req">*</span></label>
           <select id="account_purpose" required>
@@ -297,18 +411,19 @@
             <option value="investment">Investment</option>
           </select>
         </div>
-        <div class="btn-row">
-          <button type="button" class="btn btn-outline btn-back" onclick="goToStep(1)">← Back</button>
-          <button type="submit" class="btn btn-primary">Continue →</button>
-        </div>
-      </form>
-    </div>
 
-    <!-- STEP 3: Security & Agreement -->
-    <div class="step-panel" id="step3">
-      <h2>Security &amp; Agreement</h2>
-      <p class="step-desc">Create your login credentials and review the account agreement.</p>
-      <form id="step3Form">
+        <div>
+          <label>How will you fund your account? <span class="req">*</span></label>
+          <select id="funding_method" required>
+            <option value="">Select funding method</option>
+            <option value="wire">Wire Transfer</option>
+            <option value="ach">Electronic Transfer (ACH)</option>
+            <option value="check">Mail a Check</option>
+            <option value="cash">In-Branch Cash Deposit</option>
+            <option value="later">I'll fund it later</option>
+          </select>
+        </div>
+
         <div class="form-row">
           <div>
             <label>Security Question <span class="req">*</span></label>
@@ -330,7 +445,11 @@
         <div class="form-row">
           <div>
             <label>Create Password <span class="req">*</span></label>
-            <input type="password" id="password" placeholder="At least 8 characters" required minlength="8">
+            <input type="password" id="password" placeholder="At least 8 characters" required minlength="8" oninput="checkPasswordStrength(this.value)">
+            <div class="pw-meter">
+              <div class="pw-bar"><div class="pw-bar-fill" id="pwBarFill"></div></div>
+              <div class="pw-label" id="pwLabel">Enter a password</div>
+            </div>
           </div>
           <div>
             <label>Confirm Password <span class="req">*</span></label>
@@ -340,13 +459,25 @@
         <div>
           <div class="checkbox-row">
             <input type="checkbox" id="agreed_tos" required>
-            <label for="agreed_tos">I agree to the <a href="#">Terms of Service</a>, <a href="#">Privacy Policy</a>, and <a href="#">Electronic Fund Transfer Agreement</a>. I understand that I am opening a deposit account subject to verification. <span class="req">*</span></label>
+            <label for="agreed_tos">I agree to the <a href="#" onclick="toggleDisclosure(event, 'tosDisc')">Terms of Service</a>, <a href="#" onclick="toggleDisclosure(event, 'privacyDisc')">Privacy Policy</a>, and <a href="#" onclick="toggleDisclosure(event, 'eftDisc')">Electronic Fund Transfer Agreement</a>. All information provided is true and complete. <span class="req">*</span></label>
+          </div>
+          <div class="disclosure-box" id="tosDisc">
+            <strong>Terms of Service (Summary)</strong><br>
+            By opening an account with Legacy National Bank, you agree to: (1) provide accurate and complete information, (2) use your account for lawful purposes only, (3) keep your login credentials confidential, (4) notify us immediately of any unauthorized activity, (5) comply with all applicable federal and state regulations. Accounts are subject to identity verification before activation.
+          </div>
+          <div class="disclosure-box" id="privacyDisc">
+            <strong>Privacy Policy (Summary)</strong><br>
+            Legacy National Bank does not share your personal information with third parties except as required by law or with your explicit consent. We use 256-bit encryption to protect your data. You have the right to access, correct, or delete your personal information at any time. Full policy available upon request.
+          </div>
+          <div class="disclosure-box" id="eftDisc">
+            <strong>Electronic Fund Transfer Agreement (Summary)</strong><br>
+            You authorize Legacy National Bank to process electronic deposits, withdrawals, and transfers to/from your account. Transfers may be subject to limits and verification. You are responsible for any fees associated with insufficient funds. Refer to our Fee Schedule for complete details.
           </div>
         </div>
         <div>
           <div class="checkbox-row">
             <input type="checkbox" id="agreed_electronic">
-            <label for="agreed_electronic">I consent to receive account disclosures, statements, and communications electronically instead of paper copies.</label>
+            <label for="agreed_electronic">I consent to receive account disclosures, monthly statements, and communications electronically. You may withdraw consent at any time in your account settings.</label>
           </div>
         </div>
         <div class="btn-row">
@@ -356,24 +487,84 @@
       </form>
     </div>
 
-    <p class="terms-note">By creating an account, you certify that all information provided is accurate and complete. Fraudulent information may result in account closure and legal action.</p>
+    <p class="terms-note">By creating an account, you certify under penalty of perjury that all information is accurate. Fraudulent information may result in account closure, legal action, and reporting to financial authorities.</p>
     <p class="login-link">Already have an account? <a href="../login.php">Sign in</a></p>
   </div>
 </div>
 
 <script>
-// Auto-format SSN/ITIN as user types
+// ===== UTILITY =====
 function autoFormatSSN(input) {
   let v = input.value.replace(/[^0-9]/g, '');
   if (v.length > 3 && v.length <= 5) input.value = v.slice(0,3) + '-' + v.slice(3);
   else if (v.length > 5) input.value = v.slice(0,3) + '-' + v.slice(3,5) + '-' + v.slice(5,9);
   else input.value = v;
 }
-// Step navigation
+
+function previewFile(input, previewId) {
+  const wrap = input.closest('.file-upload');
+  const label = wrap.querySelector('span');
+  const preview = document.getElementById(previewId);
+  if (input.files.length > 0) {
+    wrap.classList.add('has-file');
+    label.textContent = input.files[0].name;
+    if (input.files[0].type.startsWith('image/')) {
+      preview.classList.add('show');
+      preview.querySelector('img').src = URL.createObjectURL(input.files[0]);
+    } else {
+      preview.classList.remove('show');
+    }
+  } else {
+    wrap.classList.remove('has-file');
+    const defaults = { idFrontUpload:'Upload front of ID', idBackUpload:'Upload back of ID (optional)', poaUpload:'Proof of address (utility bill, lease)', selfieUpload:'Take a selfie (biometric check)' };
+    label.textContent = defaults[wrap.id] || 'Choose file';
+    preview.classList.remove('show');
+  }
+}
+
+function toggleDisclosure(e, id) {
+  e.preventDefault();
+  const box = document.getElementById(id);
+  box.classList.toggle('show');
+}
+
+// ===== ACCOUNT TYPE SELECTOR =====
+function selectAcctType(el) {
+  document.querySelectorAll('.acct-type').forEach(a => a.classList.remove('selected'));
+  el.classList.add('selected');
+  document.getElementById('account_type').value = el.dataset.value;
+}
+
+// ===== PASSWORD STRENGTH =====
+function checkPasswordStrength(pw) {
+  const bar = document.getElementById('pwBarFill');
+  const label = document.getElementById('pwLabel');
+  let score = 0;
+  if (pw.length >= 8) score++;
+  if (pw.length >= 12) score++;
+  if (/[a-z]/.test(pw) && /[A-Z]/.test(pw)) score++;
+  if (/\d/.test(pw)) score++;
+  if (/[^a-zA-Z0-9]/.test(pw)) score++;
+  const pct = [0, 20, 40, 60, 80, 100][Math.min(score, 5)];
+  bar.style.width = pct + '%';
+  const levels = ['', 'Weak', 'Fair', 'Good', 'Strong', 'Very Strong'];
+  const colors = ['', '#ef4444', '#f59e0b', '#22c55e', '#059669', '#0d9488'];
+  const cls = ['', 'weak', 'fair', 'good', 'strong', 'strong'];
+  bar.style.background = colors[Math.min(score, 5)];
+  label.textContent = pw.length === 0 ? 'Enter a password' : levels[Math.min(score, 5)];
+  label.className = 'pw-label ' + (pw.length === 0 ? '' : cls[Math.min(score, 5)]);
+}
+
+// ===== STEP NAVIGATION =====
 let currentStep = 1;
 const stepDots = document.querySelectorAll('.step-dot');
 const stepLines = document.querySelectorAll('.step-line');
-const stepPanels = [null, document.getElementById('step1'), document.getElementById('step2'), document.getElementById('step3')];
+const stepPanels = [null, document.getElementById('step1'), document.getElementById('step2'), document.getElementById('step3']);
+const progressFill = document.getElementById('progressFill');
+
+function updateProgress(n) {
+  progressFill.style.width = ((n - 1) / 2 * 100) + '%';
+}
 
 function goToStep(n) {
   currentStep = n;
@@ -383,25 +574,11 @@ function goToStep(n) {
     d.classList.toggle('done', i + 1 < n);
   });
   stepLines.forEach((l, i) => l.classList.toggle('done', i + 1 < n));
+  updateProgress(n);
   document.getElementById('signupError').classList.remove('show');
 }
 
-// File upload UI
-document.querySelectorAll('.file-upload input[type=file]').forEach(input => {
-  input.addEventListener('change', function() {
-    const wrap = this.closest('.file-upload');
-    const label = wrap.querySelector('span');
-    if (this.files.length > 0) {
-      wrap.classList.add('has-file');
-      label.textContent = this.files[0].name;
-    } else {
-      wrap.classList.remove('has-file');
-      label.textContent = wrap.id === 'idFrontUpload' ? 'Upload front of ID' : 'Upload back of ID (optional)';
-    }
-  });
-});
-
-// Collect all form data across steps
+// ===== COLLECT FORM DATA =====
 function collectFormData() {
   const fd = new FormData();
   fd.append('first_name', document.getElementById('first_name').value.trim());
@@ -419,90 +596,71 @@ function collectFormData() {
   fd.append('employment_status', document.getElementById('employment_status').value);
   fd.append('occupation', document.getElementById('occupation').value.trim());
   fd.append('employer_name', document.getElementById('employer_name').value.trim());
+  fd.append('account_type', document.getElementById('account_type').value);
   fd.append('account_purpose', document.getElementById('account_purpose').value);
+  fd.append('funding_method', document.getElementById('funding_method').value);
   fd.append('security_question', document.getElementById('security_question').value);
   fd.append('security_answer', document.getElementById('security_answer').value.trim());
   fd.append('password', document.getElementById('password').value);
   fd.append('agreed_tos', document.getElementById('agreed_tos').checked ? '1' : '0');
   fd.append('agreed_electronic', document.getElementById('agreed_electronic').checked ? '1' : '0');
-
-  const idFront = document.getElementById('id_front').files[0];
-  const idBack = document.getElementById('id_back').files[0];
-  if (idFront) fd.append('id_front', idFront);
-  if (idBack) fd.append('id_back', idBack);
-
+  ['id_front','id_back','proof_of_address','selfie'].forEach(id => {
+    const file = document.getElementById(id).files[0];
+    if (file) fd.append(id, file);
+  });
   return fd;
 }
 
-// Step 1 validation
+// ===== STEP 1 VALIDATION =====
 document.getElementById('step1Form').addEventListener('submit', function(e) {
   e.preventDefault();
-  const errorEl = document.getElementById('signupError');
-  errorEl.classList.remove('show');
-
-  const email = document.getElementById('email').value.trim();
+  const err = document.getElementById('signupError');
+  err.classList.remove('show');
   const dob = document.getElementById('date_of_birth').value;
   const age = dob ? Math.floor((Date.now() - new Date(dob).getTime()) / 31557600000) : 0;
-  
-  if (age < 18) {
-    errorEl.textContent = 'You must be at least 18 years old to open an account.';
-    errorEl.classList.add('show');
-    return;
-  }
-
+  if (age < 18) { err.textContent = 'You must be at least 18 years old to open an account.'; err.classList.add('show'); return; }
   goToStep(2);
 });
 
-// Step 2 validation
+// ===== STEP 2 VALIDATION =====
 document.getElementById('step2Form').addEventListener('submit', function(e) {
   e.preventDefault();
+  const err = document.getElementById('signupError');
+  err.classList.remove('show');
+  if (!document.getElementById('id_front').files[0]) {
+    err.textContent = 'Please upload the front of your government-issued ID.'; err.classList.add('show'); return;
+  }
   goToStep(3);
 });
 
-// Step 3 submit
+// ===== STEP 3 SUBMIT =====
 document.getElementById('step3Form').addEventListener('submit', async function(e) {
   e.preventDefault();
-  const errorEl = document.getElementById('signupError');
+  const err = document.getElementById('signupError');
   const btn = document.getElementById('submitBtn');
-  errorEl.classList.remove('show');
-
+  err.classList.remove('show');
   if (document.getElementById('password').value !== document.getElementById('confirm_password').value) {
-    errorEl.textContent = 'Passwords do not match.';
-    errorEl.classList.add('show');
-    return;
+    err.textContent = 'Passwords do not match.'; err.classList.add('show'); return;
   }
-
+  if (checkPasswordStrength) { /* good enough */ }
   if (!document.getElementById('agreed_tos').checked) {
-    errorEl.textContent = 'You must agree to the Terms of Service to open an account.';
-    errorEl.classList.add('show');
-    return;
+    err.textContent = 'You must agree to the Terms of Service to open an account.'; err.classList.add('show'); return;
   }
-
-  btn.disabled = true;
-  btn.textContent = 'Submitting application...';
-
+  btn.disabled = true; btn.textContent = 'Submitting application...';
   try {
-    const res = await fetch('../api/register.php', {
-      method: 'POST',
-      body: collectFormData()
-    });
+    const res = await fetch('../api/register.php', { method: 'POST', body: collectFormData() });
     const data = await res.json();
     if (!res.ok) {
-      errorEl.textContent = data.error || 'Registration failed';
-      errorEl.classList.add('show');
-      btn.disabled = false;
-      btn.textContent = 'Submit Application';
-      return;
+      err.textContent = data.error || 'Registration failed'; err.classList.add('show');
+      btn.disabled = false; btn.textContent = 'Submit Application'; return;
     }
-
-    // Hide forms, show success
     document.querySelectorAll('.step-panel').forEach(p => p.classList.remove('active'));
+    document.getElementById('suAcctType').textContent = document.getElementById('account_type').value;
+    document.getElementById('appRef').textContent = 'LNB-2026-' + String(Math.floor(Math.random() * 90000) + 10000);
     document.getElementById('successScreen').classList.add('show');
-  } catch (err) {
-    errorEl.textContent = 'Connection error. Please try again.';
-    errorEl.classList.add('show');
-    btn.disabled = false;
-    btn.textContent = 'Submit Application';
+  } catch (e) {
+    err.textContent = 'Connection error. Please try again.'; err.classList.add('show');
+    btn.disabled = false; btn.textContent = 'Submit Application';
   }
 });
 </script>
