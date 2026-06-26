@@ -13,7 +13,7 @@ $addressStreet = trim($_POST['address_street'] ?? '');
 $addressCity = trim($_POST['address_city'] ?? '');
 $addressState = trim($_POST['address_state'] ?? '');
 $addressZip = trim($_POST['address_zip'] ?? '');
-$ssnLast4 = trim($_POST['ssn_last4'] ?? '');
+$ssn = trim(str_replace('-', '', $_POST['ssn'] ?? ''));
 $idType = $_POST['id_type'] ?? '';
 $idNumber = trim($_POST['id_number'] ?? '');
 $employmentStatus = $_POST['employment_status'] ?? '';
@@ -28,14 +28,14 @@ $agreedElectronic = $_POST['agreed_electronic'] ?? '0';
 // Required field validation
 $required = ['first_name', 'last_name', 'email', 'password', 'phone', 'date_of_birth',
   'address_street', 'address_city', 'address_state', 'address_zip',
-  'ssn_last4', 'id_type', 'id_number', 'employment_status', 'account_purpose',
+  'ssn', 'id_type', 'id_number', 'employment_status', 'account_purpose',
   'security_question', 'security_answer'];
 foreach ($required as $f) {
   if (empty($_POST[$f])) jsonError(ucfirst(str_replace('_', ' ', $f)) . ' is required');
 }
 
 if (strlen($password) < 8) jsonError('Password must be at least 8 characters');
-if (!preg_match('/^[0-9]{4}$/', $ssnLast4)) jsonError('SSN last 4 digits must be exactly 4 digits');
+if (!preg_match('/^\d{9}$/', $ssn)) jsonError('SSN/ITIN must be exactly 9 digits');
 if ($agreedTos !== '1') jsonError('You must agree to the Terms of Service');
 
 // Validate age (at least 18)
@@ -57,14 +57,14 @@ try {
   $stmt = $db->prepare("INSERT INTO users (
     first_name, last_name, date_of_birth, email, password, phone,
     address_street, address_city, address_state, address_zip, address,
-    ssn_last4, id_type, id_number, employment_status, employer_name, occupation,
+    ssn, id_type, id_number, employment_status, employer_name, occupation,
     account_purpose, security_question, security_answer,
     agreed_tos, agreed_electronic, kyc_status, status
   ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'pending', 'pending_kyc')");
   $stmt->execute([
     $firstName, $lastName, $dateOfBirth, $email, $hash, $phone,
     $addressStreet, $addressCity, $addressState, $addressZip, $fullAddress,
-    $ssnLast4, $idType, $idNumber, $employmentStatus, $employerName, $occupation,
+    $ssn, $idType, $idNumber, $employmentStatus, $employerName, $occupation,
     $accountPurpose, $securityQuestion, $securityAnswer,
     $agreedTos, $agreedElectronic
   ]);

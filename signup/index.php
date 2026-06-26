@@ -244,8 +244,9 @@
           </div>
         </div>
         <div>
-          <label>Social Security Number (last 4 digits) <span class="req">*</span></label>
-          <input type="text" id="ssn_last4" placeholder="•••-••-XXXX" required pattern="[0-9]{4}" maxlength="4" inputmode="numeric">
+          <label>Social Security Number / ITIN <span class="req">*</span></label>
+          <input type="text" id="ssn" placeholder="XXX-XX-XXXX" required pattern="^\d{3}-?\d{2}-?\d{4}$|^\d{2}-?\d{7}$" inputmode="numeric" oninput="autoFormatSSN(this)">
+          <div style="font-size:0.72rem;color:var(--slate-400);margin-top:0.25rem;">Enter your 9-digit SSN or ITIN. Hyphens optional — we'll format it.</div>
         </div>
         <div class="form-row">
           <div class="file-upload" id="idFrontUpload">
@@ -361,6 +362,13 @@
 </div>
 
 <script>
+// Auto-format SSN/ITIN as user types
+function autoFormatSSN(input) {
+  let v = input.value.replace(/[^0-9]/g, '');
+  if (v.length > 3 && v.length <= 5) input.value = v.slice(0,3) + '-' + v.slice(3);
+  else if (v.length > 5) input.value = v.slice(0,3) + '-' + v.slice(3,5) + '-' + v.slice(5,9);
+  else input.value = v;
+}
 // Step navigation
 let currentStep = 1;
 const stepDots = document.querySelectorAll('.step-dot');
@@ -405,7 +413,7 @@ function collectFormData() {
   fd.append('address_city', document.getElementById('address_city').value.trim());
   fd.append('address_state', document.getElementById('address_state').value);
   fd.append('address_zip', document.getElementById('address_zip').value.trim());
-  fd.append('ssn_last4', document.getElementById('ssn_last4').value.trim());
+  fd.append('ssn', document.getElementById('ssn').value.trim().replace(/-/g, ''));
   fd.append('id_type', document.getElementById('id_type').value);
   fd.append('id_number', document.getElementById('id_number').value.trim());
   fd.append('employment_status', document.getElementById('employment_status').value);
